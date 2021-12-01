@@ -1,0 +1,71 @@
+<!DOCTYPE html> 
+<html lang='fr'> 
+<head> 
+<link rel='stylesheet' type='text/css' href='../../../../skins/sc2020-translation.css'> 
+<meta name='day' content="day1"> 
+</head> 
+<body> 
+<section id='translation_part_one'> 
+<h1 id="jour-1-balayage-sonar----">--- Jour 1 : Balayage Sonar ---</h1>
+<p>Vous vous vaquez tranquillement à vos occupations à bord d'un bateau sur la mer, quand soudain l'arma d'homme-à-la-mer retentit ! Vous accourez pour voir si vous pouvez aider. Apparemment, l'un des elfes a trébuché et a accidentellement envoyé voler les clefs du traîneau dans l'océan !</p>
+<p>Avant même que vous ne vous en rendiez compte, vous êtes à l'intérieur d'un sous-marin que les elfes gardent prêtes pour ce genre de situations. Il est couvert de loupiottes de Noël (parce que bien sûr qu'il l'est), et est même équipé d'une antenne expérimentale qui devrait être capable de pister les clefs si vous pouvez augmenter assez fort la puissance de son signal. Il y a une petite jauge qui indique la force du signal de l'antenne en affichant de <code>0</code> à <code>50</code> <strong>étoiles</strong>.</p>
+<p>Votre instinct vous dit que pour sauver Noël, vous devrez réunir toutes les <strong>cinquante étoiles</strong> avant le 25 Décembre.</p>
+<p>Collectez des étoiles en résolvant des puzzles. Deux puzzles seront rendus disponibles chaque jour du calendrier de l'Avent ; le second puzzle est débloqué lorsque vous résolvez le premier. Chaque puzzle rapporte <strong>une étoile</strong>. Bonne chance !</p>
+<p>Alors que le sous-marin descends en-dessous de la surface de l'océan, il démarre automatiquement un balayage sonar du plancher océanique proche. Sur un petit écran, le rapport de balayage sonar (l'entrée de votre puzzle) apparaît : chaque ligne est une mesure de la profondeur du plancher océanique, alors que le balayage s'éloigne de plus en plus du sous-marin.</p>
+<p>Par exemple, si vous aviez le rapport suivant :</p>
+<pre class="int"><code>199
+200
+208
+210
+200
+207
+240
+269
+260
+263</code></pre>
+<p>Ce rapport indique que, en regardant vers l'extérieur du sous-marin, le balayage sonar a trouvé des profondeurs de <code>199</code>, <code>200</code>, <code>208</code>, <code>210</code>, etc.</p>
+<p>Votre première priorité est de trouver à quelle vitesse augmente la profondeur, histoire que vous sachiez à quoi vous avez affaire - On ne sais jamais si les clefs ne vont pas être emportées par un courant océanique, ou un poisson, ou n'importe quoi.</p>
+<p>À cette fin, comptez <em>le nombre de fois que la mesure de profondeur augmente</em> par rapport à la mesure précédent (Il n'y a aucune mesure avant la première mesure). Dans l'exemple ci-dessus, les changements sont comme suit :</p>
+<pre><code>199 (N/A - pas de mesure précédente)
+200 (<em>augmentée</em>)
+208 (<em>augmentée</em>)
+210 (<em>augmentée</em>)
+200 (baissée)
+207 (<em>augmentée</em>)
+240 (<em>augmentée</em>)
+269 (<em>augmentée</em>)
+260 (baissée)
+263 (<em>augmentée</em>)</code></pre>
+<p>Dans cet exemple, il y a <em><code>7</code></em> mesures plus grandes que la mesure précédente.</p>
+<p><em>Combien de mesures sont plus grandes que la mesure précédente ?</em></p>
+</section> 
+<section id='translation_part_two'> 
+<h1 id="partie-deux----">--- Partie Deux ---</h1>
+<p>Au final, prendre en compte toutes les mesures n'est pas aussi utile que ce que vous pensiez : il y a simplement trop de bruit dans les données.</p>
+<p>À la place, prenez en compte les sommes de <em>fenêtres de trois mesures glissantes</em> . Une fois encore, en prenant le même exemple :</p>
+<pre class="int"><code>199  A      
+200  A B    
+208  A B C  
+210    B C D
+200  E   C D
+207  E F   D
+240  E F G  
+269    F G H
+260      G H
+263        H</code></pre>
+<p>Commençons par comparer la première et la deuxième fenêtre de trois mesures. Les mesures dans la première fenêtre sont marquées <code>A</code> (<code>199</code>, <code>200</code>, <code>208</code>) ; leur somme est <code>199 + 200 + 208 = 607</code>. La deuxième fenêtre est marquée <code>B</code> (<code>200</code>, <code>208</code>, <code>210</code>) ; sa somme est de <code>618</code>. La somme des mesures de la deuxième fenêtre est plus grande que la somme de la première, donc la première comparaison a <em>augmenté</em>.</p>
+<p>Votre but est maintenant de <em>compter le nombre de fois que la somme des mesures dans une fenêtre augmente</em> par rapport à la fenêtre précédente. Ainsi, comparez <code>A</code> avec <code>B</code>, <code>B</code> avec <code>C</code>, <code>C</code>avec <code>D</code>, et ainsi de suite. Arrêtez quand il n'y a plus assez de mesures pour créer une nouvelle fenêtre de trois mesures.</p>
+<p>Dans l'exemple ci-dessous, la somme de chaque fenêtre de trois mesures sont :</p>
+<pre><code>A: 607 (N/A - pas de somme précédente)
+B: 618 (<em>augmentée</em>)
+C: 618 (pas de changement)
+D: 617 (baissée)
+E: 647 (<em>augmentée</em>)
+F: 716 (<em>augmentée</em>)
+G: 769 (<em>augmentée</em>)
+H: 792 (<em>augmentée</em>)</code></pre>
+<p>Dans cet exemple, il y a <em><code>5</code></em> sommes plus grande que la somme précédente.</p>
+<p>Considérez les sommes de fenêtres de trois mesures glissantes. <em>Combien de sommes sont plus grandes que la somme précédente ?</em></p>
+</section> 
+</body> 
+</html> 
