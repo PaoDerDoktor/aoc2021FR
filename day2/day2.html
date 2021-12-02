@@ -1,0 +1,64 @@
+<!DOCTYPE html> 
+<html lang='fr'> 
+<head> 
+<link rel='stylesheet' type='text/css' href='../../../../skins/sc2020-translation.css'> 
+<meta name='day' content="day2"> 
+</head> 
+<body> 
+<section id='translation_part_one'> 
+<h1 id="jour-2-plongez---">-- Jour 2 : Plongez ! --</h1>
+<p>Maintenant, vous devez comprendre comment piloter cet engin.</p>
+<p>On dirait que le sous-marin peut prendre une série de commandes comme <code>forward 1</code>, <code>down 2</code>, ou <code>up 3</code> :</p>
+<ul>
+<li><code>forward X</code> ("avant X" en anglais) augmente votre position horizontale de <code>X</code> unités.</li>
+<li><code>down X</code> ("bas X" en anglais) <em>augmente</em> votre profondeur de <code>X</code> unités.</li>
+<li><code>up X</code> ("haut X" em anglais) <em>diminue</em> votre profondeur de <code>X</code> unités.</li>
+</ul>
+<p>Notez que comme vous êtes dans un sous-marin, <code>down</code> et <code>up</code> ("haut" et "bas" donc) affectent votre <em>profondeur</em>, et ont donc un effet qui peut être opposé à ce à quoi vous pourriez vous attendre.</p>
+<p>Le sous-marin semble déjà avoir un parcours planifié (l'entrée de votre puzzle). Vous devriez essayer de voir où il va. Par exemple :</p>
+<pre class="path"><code>forward 5
+down 5
+forward 8
+up 3
+down 8
+forward 2</code></pre>
+<p>Votre position horizontale et votre profondeur démarrent toutes deux à <code>0</code>. Les étapes ci-dessus les modifieraient ensuite ainsi :</p>
+<ul>
+<li><code>forward 5</code> ajoute <code>5</code> à votre position horizontale, pour un total de <code>5</code>.</li>
+<li><code>down 5</code> ajoute <code>5</code> à votre profondeur, pour un total de <code>5</code>.</li>
+<li><code>forward 8</code> ajoute <code>8</code> à votre position horizontale, pour un total de <code>13</code>.</li>
+<li><code>up 3</code> retire <code>3</code> à votre profondeur, pour un total de <code>2</code>.</li>
+<li><code>down 8</code> ajoute <code>8</code> à votre profondeur, pour un total de <code>10</code>.</li>
+<li><code>forward 2</code> ajoute <code>2</code> à votre position horizontale, pour un total de <code>15</code>.</li>
+</ul>
+<p>Après avoir suivi ces instructions, vous devriez avoir une position horizontale de <code>15</code> et une profondeur de <code>10</code> (multiplier les deux ensemble donne <em><code>150</code></em>).</p>
+<p>Calculez la position horizontale et la profondeur que vous auriez après avoir suivi le chemin programmé. <em>Qu'obtenez-vous si vous multipliez votre position horizontale finale et votre profondeur finale ?</em></p>
+</section> 
+<section id='translation_part_two'> 
+<h1 id="partie-deux---">-- Partie Deux --</h1>
+<p>Selon vos calculs, le chemin programmé a l'air de n'avoir aucun sens. Vous trouvez le manuel du sous-marin et découvrez que le processus est en fait un tout petit peu plus compliqué.</p>
+<p>En plus de la position horizontale et de la profondeur, vous aurez aussi besoin de vérifier une troisième valeur, la <em>cible</em>, qui commence également à <code>0</code>. De plus, les commandes ont en réalité des significations un peu différentes de ce que vous aviez pensé :</p>
+<ul>
+<li><code>down X</code> <em>augmente</em> votre cible de <code>X</code> unités.</li>
+<li><code>up X</code> <em>diminue</em> votre cible de <code>X</code> unités.</li>
+<li><code>forward X</code> fait deux choses :
+<ul>
+<li>Elle augmente votre position horizontale de <code>X</code> unités.</li>
+<li>Elle augmente votre profondeur par votre cible <em>multipliée par</em> <code>X</code>.</li>
+</ul></li>
+</ul>
+<p>Notez à nouveau que puisque vous êtes dans un sous-marin, <code>down</code> et <code>up</code> font l'opposé de ce que vous pourriez penser à première vue : "down" signifie en fait cibler vers une direction positive (puisqu'on mesure la profondeur).</p>
+<p>À présent, l'exemple du dessus fait quelque chose de différent :</p>
+<ul>
+<li><code>forward 5</code> ajoute <code>5</code> à votre position horizontale, pour un total de <code>5</code>. Puisque votre cible est de <code>0</code>, la profondeur ne change pas.</li>
+<li><code>down 5</code> ajoute <code>5</code> à votre cible, pour un total de <code>5</code>.</li>
+<li><code>forward 8</code> ajoute <code>8</code> à votre position horizontale, pour un total de <code>13</code>. Puisque votre cible est de <code>5</code>, votre profondeur augmente de <code>8*5=40</code>.</li>
+<li><code>up 3</code> ajoute <code>3</code> à votre cible, pour un total de <code>2</code>.</li>
+<li><code>down 8</code> ajoute <code>8</code> à votre cible, pour un total de <code>10</code>.</li>
+<li><code>forward 2</code> ajoute <code>2</code> à votre position horizontale, pour un total de <code>15</code>. Puisque votre cible est de <code>10</code>, votre profondeur augmente de <code>2*10=20</code> pour un total de <code>60</code>.</li>
+</ul>
+<p>Après avoir suivi ces nouvelles instructions, vous auriez une position horizontale de <code>15</code> et une profondeur de <code>60</code> (les multiplier ensemble donne <em><code>900</code></em>).</p>
+<p>En utilisant cette nouvelle interprétation des commandes, calculez la position horizontale et la profondeur que vous auriez après avoir suivi le chemin programmé. <em>Qu'obtenez-vous si vous multipliez votre position horizontale finale avec votre profondeur finale ?</em></p>
+</section> 
+</body> 
+</html> 
