@@ -1,0 +1,67 @@
+<!DOCTYPE html> 
+<html lang='fr'> 
+<head> 
+<link rel='stylesheet' type='text/css' href='../../../../skins/sc2020-translation.css'> 
+<meta name='day' content="day3"> 
+</head> 
+<body> 
+<section id='translation_part_one'> 
+<h1 id="jour-3-diagnostic-binaire----">--- Jour 3 : Diagnostic Binaire ---</h1>
+<p>Le sous-marin fait de drôles de bruits de craquements, alors vous lui demandez de vous faire un rapport de diagnostic, juste au cas où.</p>
+<p>Le rapport de diagnostic (l'entrée de votre puzzle) consiste en une liste de nombres binaires qui, une fois décodés de la bonne manière, peuvent vous indiquer beaucoup de choses utiles à propos de la condition du sous-marin. Le premier paramètre à vérifier est la <em>consommation énergétique</em>.</p>
+<p>Vous aurez besoin d'utiliser les nombres binaires du rapport de diagnostic pour générer deux nouveaux nombres binaires (appelé <em>l'indice gamma</em> et <em>l'indice epsilon</em>). La consommation énergétique peut être trouvée en multipliant l'indice gamma par l'indice epsilon.</p>
+<p>Chaque bit de l'indice gamma peut être déterminé en trouvant le <em>bit le plus commun à la position correspondante</em> de tous les nombres du rapport de diagnostic. Par exemple, étant donné le rapport de diagnostic suivant :</p>
+<pre class="bin"><code>00100
+11110
+10110
+10111
+10101
+01111
+00111
+11100
+10000
+11001
+00010
+01010</code></pre>
+<p>En considérant uniquement le premier bit de chaque nombre, il y a cinq bits valant <code>0</code> et sept bits valant <code>1</code>, le premier bit de l'indice gamma est donc <code>1</code>.</p>
+<p>Le deuxième bit le plus commun du rapport de diagnostic est <code>0</code>, donc le deuxième bit de l'indice gamma est <code>0</code>.</p>
+<p>Les valeurs les plus courantes des troisième, quatrième et cinquième bits sont <code>1</code>, <code>1</code> et <code>0</code> respectivement, ainsi les trois bits finaux de l'indice gamma sont <code>110</code>.</p>
+<p>Ainsi, l'indice gamma est le nombre binaire <code>10110</code>, ou <em><code>22</code></em> en décimal.</p>
+<p>L'échelle epsilon est calculée d'une façon similaire ; mais plutôt qu'en utilisant la valeur la plus commune, la valeur la moins commune est utilisée. En conséquence, la valeur de l'échelle epsilon est <code>01001</code>, soit <em><code>9</code></em> en décimal. Multiplier l'indice gamma (<code>22</code>) par l'indice epsilon (<code>9</code>) donne la consommation énergétique, <em><code>198</code></em>.</p>
+<p>Utilisez les nombres binaires de votre rapport de diagnostic pour calculer les indices gamma et epsilon, puis multipliez-les ensemble. <em>Quelle est la consommation énergétique du sous-marin ?</em> Assurez-vous de représenter votre réponse en décimal, et non en binaire.</p>
+</section> 
+<section id='translation_part_two'> 
+<h1 id="partie-deux----">--- Partie Deux ---</h1>
+<p>Ensuite, vous devriez vérifier l'<em>état des systèmes de survie</em>, qui peut être déterminée en multipliant l'<em>activité du générateur d'oxygène</em> et l'<em>activité de l'éliminateur de CO2</em>.</p>
+<p>L'activité du générateur d'oxygène et celle de l'éliminateur de CO2 peuvent être trouvées dans votre rapport de diagnostic - les trouver, c'est le plus compliqué. Les deux valeurs sont décelables en suivant un processus similaire, impliquant de filtrer les valeurs jusqu'à ce qu'une seule ne subsiste. Avant de chercher l'une des valeurs, commencez avec la liste complète des nombres binaires de votre rapport de diagnostic et prenez en compte <em>uniquement le premier bit</em> de ces nombres. Alors :</p>
+<ul>
+<li>Gardez seulement les nombres sélectionnés par le <em>critère de bit</em> pour l'activité que vous étudiez. Rejetez les nombres qui ne correspondent pas au critère.</li>
+<li>S'il ne vous reste qu'un seul nombre,m arrêtez-vous ; il s'agit du nombre représentant la valeur que vous recherchez.</li>
+<li>Sinon, répétez le processus, en prenant en compte le bit suivant sur la droite.</li>
+</ul>
+<p>Le <em>critère de bit</em> dépend de ce que vous cherchez :</p>
+<ul>
+<li>Pour trouver l'<em>activité du générateur d'oxygène</em>, déterminez la <em>valeur la plus commune</em> (<code>0</code> ou <code>1</code>) dans la position de bit actuelle, et gardez uniquement les nombres qui ont cette valeur dans cette position. Si <code>0</code> et <code>1</code> sont en quantité égale, gardez les nombres possédant un <code>1</code> dans la position évaluée.</li>
+<li>Pour trouver l'<em>activité de l'éliminateur de CO2</em>, déterminez la <em>valeur la moins commune</em> (<code>0</code> ou <code>1</code>) dans la position de bit actuelle, et gardez uniquement les nombres qui ont cette valeur dans cette position. Si <code>0</code> et <code>1</code> sont en quantité égale, gardez les nombres possédant un <code>1</code> dans la position évaluée.</li>
+</ul>
+<p>Par exemple, pour déterminer la valeur de l'<em>activité du générateur d'oxygène</em> en utilisant le même rapport de diagnostic que l'exemple précédent :</p>
+<ul>
+<li>Commencez avec tous les douze nombres et ne considérez que le premier bit de chacun d'entre eux. Il y a plus de bits valant <code>1</code> (sept) que de bits valant <code>0</code> (cinq) ; ne gardez donc que les sept nombres avec un <code>1</code> dans la première position : <code>11110</code>, <code>10110</code>, <code>10111</code>, <code>10101</code>, <code>11100</code>, <code>10000</code> et <code>11001</code>.</li>
+<li>Ensuite, considérez le deuxième bit des sept nombres restants : il y a plus de bits valant <code>0</code> (quatre) que de bits valant <code>1</code> (trois) ; ne gardez donc que les quatre nombres avec un <code>0</code> dans la seconde position : <code>10110</code>, <code>10111</code>, <code>10101</code>et <code>10000</code>.</li>
+<li>Dans la troisième position, trois des quatre nombres restants ont un <code>1</code> ; gardez donc ces trois-là : <code>10110</code>, <code>10111</code>, et <code>10101</code>.</li>
+<li>Dans la quatrième position, deux des trois nombres restants ont un <code>1</code> ; gardez donc ces deux-là : <code>10110</code> et <code>10111</code>.</li>
+<li>Dans la cinquième position, il y a un nombre égal de <code>1</code> et de <code>0</code> (un chacun). Ainsi, pour trouver l'<em>activité du générateur d'oxygène</em>, gardez le nombre ayant un <code>1</code> dans cette position : <code>10111</code>.</li>
+<li>Puisqu'il ne reste plus qu'un nombre, arrêtez-vous. l'<em>activité du générateur d'oxygène</em> est <code>10111</code>, ou <em><code>23</code></em> en décimal.</li>
+</ul>
+<p>Ensuite, pour déterminer la valeur de l'<em>activité de l'éliminateur de CO2</em> en utilisant les même valeurs que ci-dessus :</p>
+<ul>
+<li>Recommencez avec tous les douze nombres et ne considérez que le premier bit de chacun d'entre eux. Il y a moins de bits valant <code>0</code> (cinq) que de bits valant <code>1</code> (sept) ; ne gardez donc que les cinq nombres avec un <code>0</code> dans la première position : <code>00100</code>, <code>01111</code>, <code>00111</code>, <code>00010</code> et <code>01010</code>.</li>
+<li>Ensuite, considérez le deuxième bit des cinq nombres restants : il y a moins de bits valant <code>1</code> (deux) que de bits valant <code>0</code> (trois) ; ne gardez donc que les deux nombres avec un <code>1</code> dans la deuxième position : <code>01111</code> et <code>01010</code>.</li>
+<li>Dans la troisième position, il y a un nombre égal de <code>1</code> et de <code>0</code> (un chacun). Ainsi, pour trouver l'<em>activité de l'éliminateur de CO2</em>, gardez le nombre avec un <code>0</code> dans cette position : <code>01010</code>.</li>
+<li>Puisqu'il ne reste plus qu'un nombre, arrêtez-vous. l'<em>activité de l'éliminateur de CO2</em> est <code>01010</code>, ou <em><code>10</code></em> en décimal.</li>
+</ul>
+<p>Enfin, pour trouver l'état des systèmes de survie, multipliez l'activité du générateur d'oxygène (<code>23</code>) par l'activité de l'éliminateur de CO2 (<code>10</code>) pour obtenir <em><code>230</code></em>.</p>
+<p>Utilisez les nombres binaires de votre rapport de diagnostic pour calculer l'activité du générateur d'oxygène et l'activité de l'éliminateur de CO2, puis ;multipliez-les ensembles. <em>Quel est l'état des systèmes de survie du sous-marin ?</em> Assurez-vous de représenter votre réponse en décimal, et non en binaire.</p>
+</section> 
+</body> 
+</html> 
