@@ -1,4 +1,4 @@
-# -- Jour 2 : Plongez ! --
+# --- Jour 2 : Plongez ! ---
 
 Maintenant, vous devez comprendre comment piloter cet engin.
 

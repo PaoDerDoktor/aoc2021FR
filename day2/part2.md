@@ -1,4 +1,4 @@
-# -- Partie Deux --
+# --- Partie Deux ---
 
 Selon vos calculs, le chemin programmé a l'air de n'avoir aucun sens. Vous trouvez le manuel du sous-marin et découvrez que le processus est en fait un tout petit peu plus compliqué.
 
