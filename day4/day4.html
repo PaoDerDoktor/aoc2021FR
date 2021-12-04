@@ -1,0 +1,66 @@
+<!DOCTYPE html> 
+<html lang='fr'> 
+<head> 
+<link rel='stylesheet' type='text/css' href='../../../../skins/sc2020-translation.css'> 
+<meta name='day' content="day4"> 
+</head> 
+<body> 
+<section id='translation_part_one'> 
+<h1 id="jour-4-calamar-géant----">--- Jour 4 : Calamar Géant ---</h1>
+<p>Vous êtes déjà à une profondeur d'1.5km (presque un mile) sous la surface de l'océan, si profond que vous ne pouvez déjà plus apercevoir la lumière du jour. Se que vous <em>pouvez</em> voir, en revanche, c'est un calamar géant qui s'est attaché sur le bord de votre sous-marin.</p>
+<p>Peut-être qu'il veut jouer au <a href="https://fr.wikipedia.org/wiki/Bingo">bingo</a> ?</p>
+<p>Le bingo est joué sur un ensemble de plateaux consistants en des grilles 5x5 de nombres. Les nombres sont ensuite tirés aléatoirement, et chaque nombre tiré est <em>marqué</em> sur toutes les planches sur lequel il apparaît (tous les nombres n'apparaissent pas forcément sur toutes les grilles). Si tous les nombres d'une colonne ou d'une grille sont marqués, la grille concernée <em>gagne</em> (les diagonales ne comptent pas).</p>
+<p>Le sous-marin possède un <em>sous-système de bingo</em> pour aider les passagers (actuellement, vous et le calamar géant) à passer le temps. Il génère automatiquement un ordre aléatoire dans lequel tirer les nombres et un ensemble aléatoire de grilles (l'entrée de votre puzzle). Par exemple :</p>
+<pre class="bingo_with_input"><code>7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,18,20,8,19,3,26,1
+
+22 13 17 11  0
+ 8  2 23  4 24
+21  9 14 16  7
+ 6 10  3 18  5
+ 1 12 20 15 19
+
+ 3 15  0  2 22
+ 9 18 13 17  5
+19  8  7 25 23
+20 11 10 24  4
+14 21 16 12  6
+
+14 21 17 24  4
+10 16 15  9 19
+18  8 23 26 20
+22 11 13  6  5
+ 2  0 12  3  7</code></pre>
+<p>Après que les cinq premiers nombres aient été tirés (<code>7</code>, <code>4</code>, <code>9</code>, <code>5</code>, et <code>11</code>), il n'y a pas de gagnant ; mais les grilles sont marquées comme ceci (représentées ici côte-à-côte pour gagner de la place) :</p>
+<pre><code>22 13 17 <em>11</em>  0         3 15  0  2 22        14 21 17 24  <em>4</em>
+ 8  2 23  <em>4</em> 24         <em>9</em> 18 13 17  <em>5</em>        10 16 15  <em>9</em> 19
+21  <em>9</em> 14 16  <em>7</em>        19  8  <em>7</em> 25 23        18  8 23 26 20
+ 6 10  3 18  <em>5</em>        20 <em>11</em> 10 24  <em>4</em>        22 <emm>11</em> 13  6  <em>5</em>
+ 1 12 20 15 19        14 21 16 12  6         2  0 12  3  <em>7</em></code></pre>
+<p>Après que les six nombres suivants aient été tirés (<code>17</code>, <code>23</code>, <code>2</code>, <code>0</code>, <code>14</code> et <code>21</code>), il n'y a toujours pas de gagnant :</p>
+<pre><code>22 13 <em>17</em> <em>11</em>  <em>0</em>         3 15  <em>0</em>  <em>2</em> 22        <em>14</em> <em>21</em> <em>17</em> 24  <em>4</em>
+ 8  <em>2</em> <em>23</em>  <em>4</em> 24         <em>9</em> 18 13 <em>17</em>  <em>5</em>        10 16 15  <em>9</em> 19
+<em>21</em>  <em>9</em> <em>14</em> 16  <em>7</em>        19  8  <em>7</em> 25 <em>23</em>        18  8 <em>23</em> 26 20
+ 6 10  3 18  <em>5</em>        20 <em>11</em> 10 24  <em>4</em>        22 <emm>11</em> 13  6  <em>5</em>
+ 1 12 20 15 19        <em>14</em> <em>21</em> 16 12  6         <em>2</em>  <em>0</em> 12  3  <em>7</em></code></pre>
+<p>Enfin, <code>24</code> est tiré :</p>
+<pre><code>22 13 <em>17</em> <em>11</em>  <em>0</em>         3 15  <em>0</em>  <em>2</em> 22        <em>14</em> <em>21</em> <em>17</em> <em>24</em>  <em>4</em>
+ 8  <em>2</em> <em>23</em>  <em>4</em> <em>24</em>         <em>9</em> 18 13 <em>17</em>  <em>5</em>        10 16 15  <em>9</em> 19
+<em>21</em>  <em>9</em> <em>14</em> 16  <em>7</em>        19  8  <em>7</em> 25 <em>23</em>        18  8 <em>23</em> 26 20
+ 6 10  3 18  <em>5</em>        20 <em>11</em> 10 <em>24</em>  <em>4</em>        22 <emm>11</em> 13  6  <em>5</em>
+ 1 12 20 15 19        <em>14</em> <em>21</em> 16 12  6         <em>2</em>  <em>0</em> 12  3  <em>7</em></code></pre>
+<p>À ce moment-là, la troisième grille gagne puisqu'elle a au moins une ligne ou colonne complètement marquée (dans ce cas, la totalité de la première ligne en haut est marquée : <em><code>14 21 17 24 4</code></em>).</p>
+Le <em>score</em> de la grille gagnante peut maintenant être calculé, en commençant par par trouver la <em>somme de tous les nombres non-marqués</em> Dans ce cas, la somme est de <code>188</code>. Ensuite, multipliez cette somme par <em>le nombre venant tout juste d'être tiré</em> quand la grille a gagné, <code>24</code> ici, pour obtenir le score final, ici
+<pre><code>188 * 24 = <em>4512</em></code></pre>
+<p>.</p>
+<p>Pour garantir votre victoire contre le calamar géant, devinez quelle grille gagnera en premier. <em>Quel sera votre score final si vous choisissez cette grille ?</em></p>
+</section> 
+<section id='translation_part_two'> 
+<h1 id="partie-deux----">--- Partie Deux ---</h1>
+<p>À bien y réfléchir, il serait peut-être plus sage d'adopter une autre stratégie : laisser le calamar gagner.</p>
+<p>Vous n'êtes pas bien sûr de combien de grilles le calamar pourrait jouer simultanément, donc plutôt que de compter ses bras, la chose la plus sûre à faire est de <em>trouver quelle grille gagnera en dernier</em> et la choisir. CComme ça, peu importe quelle(s) grille(s) le calamar choisira, il gagnera à tous les coups.</p>
+Dans l'exemple ci-dessus, la deuxième grille est la dernière à gagner, juste après que <code>13</code> soit finalement tiré et que sa colonne du milieu soit complètement marquée. Si vous continuiez à jouer jusque là, la deuxième grille aurait une somme de nombres non-marqués de <code>148</code>, pour un score final de
+<pre><code>148 * 13 = <em>1924</em></code></pre>
+<p>Trouver quelle grille gagnera en dernière. <em>Une fois qu'elle a gagné, quel sera son score final ?</em></p>
+</section> 
+</body> 
+</html> 
