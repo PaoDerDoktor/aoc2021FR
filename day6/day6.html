@@ -1,0 +1,57 @@
+<!DOCTYPE html> 
+<html lang='fr'> 
+<head> 
+<link rel='stylesheet' type='text/css' href='../../../../skins/sc2020-translation.css'> 
+<meta name='day' content="day6"> 
+</head> 
+<body> 
+<section id='translation_part_one'> 
+<h1 id="jour-6-poisson-lanterne----">--- Jour 6 : Poisson-Lanterne ---</h1>
+<p>Le plancher océanique est de plus en plus profond. Peut-être que les clefs du traîneau ont été emportées par ici ?</p>
+<p>Un énorme banc de <a href="https://fr.wikipedia.org/wiki/Myctophidae">poisson-lanternes</a> vous double. Ils doivent se reproduire rapidement pour atteindre de telles proportions - peut-être <em>exponentiellement</em> ? Vous devriez modéliser leur rapidité de croissance pour en être sur.</p>
+<p>Bien que vous ne connaissiez rien de cette espèce spécifique de poisson-lanterne, vous faites quelques assomptions sur leurs propriétés. À tous les coups, chaque poisson-lanterne crée un nouveau poisson-lanterne tous les <em>7</em> jours.</p>
+<p>Cependant, ce processus n'est pas forcément synchrone entre tous les poisson-lanterne : l'un des poisson-lanternes pourrait être à deux jours de créer un nouveau poisson-lanterne, alors qu'un autre en serait à <em>4</em> jours. Ainsi, vous pouvez modéliser chaque poisson en tant que simple entier représentant <em>le nombre de jours avant qu'il ne crée un nouveau poisson-lanterne</em>.</p>
+<p>De plus, vous vous dites, un <em>nouveau</em> poisson-lanterne devrait sûrement avoir besoin d'un peu plus de jours avant de produire plus de poisson-lanternes : deux jours de plus pour son premier cycle.</p>
+<p>Ainsi, supposez que vous ayez un poisson-lanterne avec un minuteur interne de <code>3</code> (<code>3</code> jours avant de créer un nouveau poisson, donc) :</p>
+<ul>
+<li>Après un jour, son minuteur interne deviendrait <code>2</code>.</li>
+<li>Après un autre jour, son minuteur interne passerait à <code>1</code>.</li>
+<li>Après un autre jour, son minuteur interne passerait à <code>0</code>.</li>
+<li>Après un autre jour, son minuteur interne se réinitialiserait à <code>6</code>, et il créerait un <em>nouveau</em> poisson-lanterne avec un minuteur interne de <code>8</code>.</li>
+<li>Après un autre jour, le premier poisson-lanterne verrait son minuteur interne passer à <code>5</code>, alors que le second verrait le sien passer à <code>7</code>.</li>
+</ul>
+<p>Un poisson-lanterne qui crée un nouveau poisson réinitialise son minuteur à <code>6</code>, <em>pas à <code>7</code></em> (vu que <code>0</code> est compris comme valeur valide de minuteur). Le nouveau poisson-lanterne démarre avec un minuteur interne de <code>8</code> et ne commence pas à le décompter avant le jour suivant.</p>
+<p>Réalisant ce que vous devez faire, le sous-marin produit automatiquement une liste de l'âge de plusieurs centaines de poisson-lanternes alentours (l'entrée de votre puzzle). Par exemple, supposez que vous obteniez la liste suivante :</p>
+<pre class="csv"><code>3,4,3,1,2</code></pre>
+<p>La liste signifie que le premier poisson possède un minuteur interne de <code>3</code>, que le second possède un minuteur interne de <code>4</code>, et ainsi de suite jusqu'au cinquième poisson possédant un minuteur interne de <code>2</code>. Simuler ces poissons sur plusieurs jours se passerait comme ceci :</p>
+<pre class="fishes"><code>État initial  : 3,4,3,1,2
+Après  1 jour : 2,3,2,0,1
+Après  2 jours: 1,2,1,6,0,8
+Après  3 jours: 0,1,0,5,6,7,8
+Après  4 jours: 6,0,6,4,5,6,7,8,8
+Après  5 jours: 5,6,5,3,4,5,6,7,7,8
+Après  6 jours: 4,5,4,2,3,4,5,6,6,7
+Après  7 jours: 3,4,3,1,2,3,4,5,5,6
+Après  8 jours: 2,3,2,0,1,2,3,4,4,5
+Après  9 jours: 1,2,1,6,0,1,2,3,3,4,8
+Après 10 jours: 0,1,0,5,6,0,1,2,2,3,7,8
+Après 11 jours: 6,0,6,4,5,6,0,1,1,2,6,7,8,8,8
+Après 12 jours: 5,6,5,3,4,5,6,0,0,1,5,6,7,7,7,8,8
+Après 13 jours: 4,5,4,2,3,4,5,6,6,0,4,5,6,6,6,7,7,8,8
+Après 14 jours: 3,4,3,1,2,3,4,5,5,6,3,4,5,5,5,6,6,7,7,8
+Après 15 jours: 2,3,2,0,1,2,3,4,4,5,2,3,4,4,4,5,5,6,6,7
+Après 16 jours: 1,2,1,6,0,1,2,3,3,4,1,2,3,3,3,4,4,5,5,6,8
+Après 17 jours: 0,1,0,5,6,0,1,2,2,3,0,1,2,2,2,3,3,4,4,5,7,8
+Après 18 jours: 6,0,6,4,5,6,0,1,1,2,6,0,1,1,1,2,2,3,3,4,6,7,8,8,8,8</code></pre>
+<p>Chaque jour, un <code>0</code> devient un <code>6</code> et ajoute un nouveau <code>8</code> à la fin de la liste, pendant que chaque autre nombre est décrémenté de 1 si il était présent au début de la journée.</p>
+<p>Dans cet exemple, après 18 jours, il y a un total de <code>26</code> poissons. Après 80 jours, il y en aurait un total de <em>`5934</em>.</p>
+<p>Trouvez un moyen de simuler les poisson-lanternes. <em>Combien y auraient-ils de poison-lanternes après 80 jours ?</em></p>
+</section> 
+<section id='translation_part_two'> 
+<h1 id="partie-deux----">--- Partie Deux ---</h1>
+<p>Supposez que les poisson-lanternes vivent à jamais et qu'ils aient un espace et un accès à la nourritures illimités. Est-ce qu'ils rempliraient l'océan entier ?</p>
+<p>Après 256 jours dans l'exemple ci-dessus, il y aurait un total de <em><code>26984457539</code></em> poisson-lanternes !</p>
+<p><em>Combien de poisson-lanternes y auraient-ils après 256 jours ?</em></p>
+</section> 
+</body> 
+</html> 
