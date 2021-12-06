@@ -1,0 +1,66 @@
+<!DOCTYPE html> 
+<html lang='fr'> 
+<head> 
+<link rel='stylesheet' type='text/css' href='../../../../skins/sc2020-translation.css'> 
+<meta name='day' content="day5"> 
+</head> 
+<body> 
+<section id='translation_part_one'> 
+<h1 id="jour-5-aventure-hydrothermale----">--- Jour 5 : Aventure Hydrothermale ---</h1>
+<p>Vous tombez sur un champs de <a href="cheminées%20hydrothermales">https://fr.wikipedia.org/wiki/Mont_hydrothermal</a> sur le plancher océanique ! Ces cheminées produisent de gros nuages opaques, il serait donc mieux de les éviter si possible.</p>
+<p>Ils ont tendance à former des <em>lignes</em> ; le sous-marin peut heureusement produire une liste des cheminées alentours (l'entrée de votre puzzle) que vous pouvez inspecter. Par exemple :</p>
+<pre class="lines"><code>0,9 -&gt; 5,9
+8,0 -&gt; 0,8
+9,4 -&gt; 3,4
+2,2 -&gt; 2,1
+7,0 -&gt; 7,4
+6,4 -&gt; 2,0
+0,9 -&gt; 2,9
+3,4 -&gt; 1,4
+0,0 -&gt; 8,8
+5,5 -&gt; 8,2</code></pre>
+<p>Chaque ligne de cheminée est donnée en tant que segment sous le format <code>x1, y1 -&gt; x2, y2</code> où <code>x1, y1</code> sont les coordonnées de l'un des bouts du segment et <code>x2, y2</code> sont les coordonnées de l'autre bout. Ces segments incluent les points formant les bouts. En d'autres mots :</p>
+<ul>
+<li>Une entrée <code>1,1 -&gt; 1,3</code> couvre les points <code>1,1</code>, <code>1,2</code> et <code>1,3</code>.</li>
+<li>Une entrée <code>9,7 -&gt; 7,7</code> couvre les points <code>9,7</code>, <code>8,7</code> et <code>7,7</code>.</li>
+</ul>
+<p>Pour le moment, <em>ne prenez en compte que les lignes horizontales et verticales</em> : les lignes où l'on retrouve <code>x1 = x2</code> ou <code>y1 = y2</code>.</p>
+<p>Ainsi, les lignes horizontales et verticales de la liste ci-dessus formeraient le diagramme suivant :</p>
+<pre class="countarray"><code>.......1..
+..1....1..
+..1....1..
+.......1..
+.112111211
+..........
+..........
+..........
+..........
+222111....</code></pre>
+<p>Dans ce diagramme, le coin en haut à gauche est <code>0,0</code> et le coin en bas à droite est <code>9,9</code>. Chaque position contient <em>le nombre de lignes passant par ce point</em>, ou le signe <code>.</code> s'il n'y en a aucune. La paire de <code>1</code> en haut à gauche, par exemple, résulte de <code>2,2 -&gt; 2,1</code> ; la ligne toute en bas est formée par les lignes se chevauchant <code>0,9 -&gt; 5,9</code> et <code>0,9 -&gt; 2,9</code>.</p>
+<p>Pour éviter les zones les plus dangereuses, vous devrez déterminer le <em>nombre de points où au moins deux lignes se chevauchent</em>. Dans l'exemple ci-dessus, il ss'agit de n'importe quel emplacement du diagramme où est écrit <code>2</code> ou plus - un total de <em><code>5</code></em> points.</p>
+<p>Ne considérez que les lignes horizontales et verticales. <em>À combien de points au moins deux lignes se chevauchent-elles ?</em></p>
+</section> 
+<section id='translation_part_two'> 
+<h1 id="partie-deux----">--- Partie Deux ---</h1>
+<p>Malheureusement, ne considérer que les lignes verticales et horizontales ne vous montre pas la situation comme elle est réellement, vous aurez également besoin des <em>lignes diagonales</em>.</p>
+<p>En raison des limites du système de cartographie des cheminées hydrothermales, les lignes de votre listes seront toujours soit verticales, soit horizontales, soit des diagonales à exactement 45 degrés. En d'autres mots :</p>
+<ul>
+<li>Une entrée <code>1,1 -&gt; 3,3</code> couvre les points <code>1,1</code>, <code>2,2</code> et <code>3,3</code>.</li>
+<li>Une entrée <code>9,7 -&gt; 7,9</code> couvre les points <code>9,7</code>, <code>8,8</code> et <code>7,9</code>.</li>
+</ul>
+<p>En prenant en compte toutes les lignes de l'exemple ci-dessus, on obtient désormais le diagramme suivant :</p>
+<pre class="countarray"><code>1.1....11.
+.111...2..
+..2.1.111.
+...1.2.2..
+.112313211
+...1.2....
+..1...1...
+.1.....1..
+1.......1.
+222111....</code></pre>
+<p>Vous avez encore besoin de déterminer <em>le nombre de points où au moins deux lignes se chevauchent</em>. Dans l'exemple ci-dessus, c'est encore une fois à n'importe quel endroit du diagramme où est écrit <code>2</code> ou plus - désormais un total de <em><code>12</code></em> points.</p>
+<p>Prenez toutes les lignes en compte. <em>À combien de points au moins deux lignes se chevauchent-elles ?</em></p>
+</section> 
+</body> 
+</html> 
