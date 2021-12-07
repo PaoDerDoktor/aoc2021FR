@@ -1,0 +1,55 @@
+<!DOCTYPE html> 
+<html lang='fr'> 
+<head> 
+<link rel='stylesheet' type='text/css' href='../../../../skins/sc2020-translation.css'> 
+<meta name='day' content="day7"> 
+</head> 
+<body> 
+<section id='translation_part_one'> 
+<h1 id="jour-7-la-trahison-des-cachalots----">--- Jour 7 : La Trahison des Cachalots ---</h1>
+<p>Un <a href="https://fr.wikipedia.org/wiki/Grand_cachalot">cachalot</a> géant a décidé de faire du sous-marin son prochain repas, et il est beaucoup plus rapide que vous. Il n'y a aucune issue !</p>
+<p>Soudain, une nuée de crabes (chacun dans son propre petit sous-marin - sinon il serait trop profond pour eux) descends en piqué pour vous sauver ! Ils ont l'air de se préparer à créer un trou dans le plancher océanique ; vos senseurs vous indiquent un <em>énorme réseau de grottes souterraines</em> pile en-dessous de leur cible !</p>
+<p>Les sous-marins crabes ont besoin d'être tous alignés pour avoir assez de puissance pour faire un trou assez gros pour votre sous-marin. Malheureusement, il semble qu'ils ne seront jamais alignés avant que le cachalot ne vous rattrape ! Peut-être que vous pouvez les aider ?</p>
+<p>Par contre, il y a un gros souci : les sous-marins crabes ne peuvent bouger qu'horizontalement.</p>
+<p>Vous établissez rapidement la liste des <em>positions horizontales de chaque crabe</em> (l'entrée de votre puzzle). Les sous-marins crabes ont des réserves de carburant limitées, vous devez donc trouver un moyen de faire correspondre leurs position horizontales tout en leur faisant dépenser le moins de carburant possible.</p>
+<p>Par exemple, considérez les positions horizontales suivantes :</p>
+<pre class="intcode"><code>16,1,2,0,4,2,7,1,2,14</code></pre>
+<p>Ceci veut dire qu'il y a un crabe avec une position de <code>16</code>, un crabe avec une position de <code>1</code>, et ainsi de suite.</p>
+<p>Chaque changement de 1 unité de position horizontale coûte une unité de carburant. Vous pourriez prendre n'importe quelle position pour les aligner, mais celle minimisant le coût en carburant est la position horizontale <code>2</code> :</p>
+<ul>
+<li>Mouvement de <code>16</code> à <code>2</code> : <code>14</code> unités de carburant</li>
+<li>Mouvement de <code>1</code> à <code>2</code> : <code>1</code> unités de carburant</li>
+<li>Mouvement de <code>2</code> à <code>2</code> : <code>0</code> unités de carburant</li>
+<li>Mouvement de <code>0</code> à <code>2</code> : <code>2</code> unités de carburant</li>
+<li>Mouvement de <code>4</code> à <code>2</code> : <code>2</code> unités de carburant</li>
+<li>Mouvement de <code>2</code> à <code>2</code> : <code>0</code> unités de carburant</li>
+<li>Mouvement de <code>7</code> à <code>2</code> : <code>5</code> unités de carburant</li>
+<li>Mouvement de <code>1</code> à <code>2</code> : <code>1</code> unités de carburant</li>
+<li>Mouvement de <code>2</code> à <code>2</code> : <code>0</code> unités de carburant</li>
+<li>Mouvement de <code>14</code> à <code>2</code> : <code>12</code> unités de carburant</li>
+</ul>
+<p>Tout ceci coûte un total de <em><code>37</code></em> unités de carburant. Il s'agit du résultat le moins coûteux, mais des résultats plus chers existent, comme l'alignement sur la position <code>1</code> (<code>41</code> unités de carburant), la position <code>3</code> (<code>39</code> unités de carburant) ou la position <code>10</code> (<code>71</code> unités de carburant).</p>
+<p>Déterminez la position horizontale sur laquelle les crabes peuvent s'aligner en utilisant le moins de carburant possible. <em>Combien d'unités de carburant doivent-ils utiliser pour s'aligner sur cette position ?</em></p>
+</section> 
+<section id='translation_part_two'> 
+<h1 id="partie-deux----">--- Partie Deux ---</h1>
+<p>Les crabes ne semblent pas interessés par votre solution. Peut-être que vous avez mal compris l'ingénierie crabe ?</p>
+<p>En fait, les moteurs des sous-marins crabes ne consomment pas de carburant à vitesse constante. À la place, chaque mouvement de 1 unité de position horizontale coûte une unité de carburant supplémentaire par rapport au précédent : le premier mouvement en coûte <code>1</code>, le deuxième en coûte <code>2</code>, le troisième en coûte <code>3</code>, etc.</p>
+<p>À mesure que les crabes se déplacent, se déplacer encore plus devient de plus en plus cher. Ceci modifie la position d'alignement optimale : sur l'exemple ci-desssus, elle devient <code>5</code>:</p>
+<ul>
+<li>Mouvement de <code>16</code> à <code>5</code> : <code>66</code> unités de carburant</li>
+<li>Mouvement de <code>1</code> à <code>5</code> : <code>10</code> unités de carburant</li>
+<li>Mouvement de <code>2</code> à <code>5</code> : <code>6</code> unités de carburant</li>
+<li>Mouvement de <code>0</code> à <code>5</code> : <code>15</code> unités de carburant</li>
+<li>Mouvement de <code>4</code> à <code>5</code> : <code>1</code> unités de carburant</li>
+<li>Mouvement de <code>2</code> à <code>5</code> : <code>6</code> unités de carburant</li>
+<li>Mouvement de <code>7</code> à <code>5</code> : <code>3</code> unités de carburant</li>
+<li>Mouvement de <code>1</code> à <code>5</code> : <code>10</code> unités de carburant</li>
+<li>Mouvement de <code>2</code> à <code>5</code> : <code>6</code> unités de carburant</li>
+<li>Mouvement de <code>14</code> à <code>5</code> : <code>45</code> unités de carburant</li>
+</ul>
+<p>Ceci coûte un total de <em><code>168</code></em> unités de carburant. Ceci est donc la nouvelle meilleure issue, l'ancienne (<code>2</code>) coûtant désormais <code>206</code> unités de carburant.</p>
+<p>Déterminez la position horizontale sur laquelle les crabes peuvent s'aligner en utilisant le moins de carburant possible pour que vous puissiez trouver une issue de secours ! <em>Combien d'unités de carburant doivent-ils utiliser pour s'aligner sur cette position ?</em></p>
+</section> 
+</body> 
+</html> 
