@@ -1,0 +1,115 @@
+<!DOCTYPE html> 
+<html lang='fr'> 
+<head> 
+<link rel='stylesheet' type='text/css' href='../../../../skins/sc2020-translation.css'> 
+<meta name='day' content="day8"> 
+</head> 
+<body> 
+<section id='translation_part_one'> 
+<h1 id="jour-8-recherche-à-sept-segments----">--- Jour 8 : Recherche à Sept Segments ---</h1>
+<p>Vous avez à peine réussi à vous mettre en sécurité dans la grotte que le cachalot donne un grand coup dans son entrée, la faisant s'écrouler. Vos senseurs vous indiquent une autre sortie bien plus profonde, vous n'avez donc d'autre choix que de continuer.</p>
+<p>Alors que votre sous-marin progresse lentement dans le réseau de cavernes, vous remarquez que vos <a href="https://fr.wikipedia.org/wiki/Affichage_%C3%A0_sept_segments">affichages à sept segments</a> à quatre chiffres sont défaillants ; ils ont sûrement été endommagés pendant la fuite. Vous aurez bien des problèmes sans eux, vous feriez donc bien de trouver ce qui ne va pas.</p>
+<p>Chaque chiffre d'un affichage à sept segments est affiché en allumant ou éteignant chacun des sept segments nommés de <code>a</code> à <code>g</code> :</p>
+<pre><code>  0:      1:      2:      3:      4:
+ <em>aaaa</em>    ....    <em>aaaa</em>    <em>aaaa</em>    ....
+<em>b</em>    <em>c</em>  .    <em>c</em>  .    <em>c</em>  .    <em>c</em>  <em>b</em>    <em>c</em>
+<em>b</em>    <em>c</em>  .    <em>c</em>  .    <em>c</em>  .    <em>c</em>  <em>b</em>    <em>c</em>
+ ....    ....    <em>dddd</em>    <em>dddd</em>    <em>dddd</em>
+<em>e</em>    <em>f</em>  .    <em>f</em>  <em>e</em>    .  .    <em>f</em>  .    <em>f</em>
+<em>e</em>    <em>f</em>  .    <em>f</em>  <em>e</em>    .  .    <em>f</em>  .    <em>f</em>
+ <em>gggg</em>    ....    <em>gggg</em>    <em>gggg</em>    ....
+
+  5:      6:      7:      8:      9:
+ <em>aaaa</em>    <em>aaaa</em>    <em>aaaa</em>    <em>aaaa</em>    <em>aaaa</em>
+<em>b</em>    .  <em>b</em>    .  .    <em>c</em>  <em>b</em>    <em>c</em>  <em>b</em>    <em>c</em>
+<em>b</em>    .  <em>b</em>    .  .    <em>c</em>  <em>b</em>    <em>c</em>  <em>b</em>    <em>c</em>
+ <em>dddd</em>    <em>dddd</em>    ....    <em>dddd</em>    <em>dddd</em>
+.    <em>f</em>  <em>e</em>    <em>f</em>  .    <em>f</em>  <em>e</em>    <em>f</em>  .    <em>f</em>
+.    <em>f</em>  <em>e</em>    <em>f</em>  .    <em>f</em>  <em>e</em>    <em>f</em>  .    <em>f</em>
+ <em>gggg</em>    <em>gggg</em>    ....    <em>gggg</em>    <em>gggg</em></code></pre>
+<p>Ainsi, pour afficher un <code>1</code>, seuls les segments <code>c</code> et <code>f</code> seraient allumés. Le reste serait éteint. Pour afficher un <code>7</code>, seuls les segments <code>a</code>, <code>c</code> et <code>f</code> seraient allumés.</p>
+<p>Le souci est que les signals qui contrôlent les segments ont été mélangés sur chaque afficheur. Le sous-marin essaie toujours d'afficher des chiffres en produisant un signal sur les câbles de <code>a</code> à <code>g</code>, mais ces câbles sont connectés <em>aléatoirement</em> aux segments. Pire, les connections câbles/segment sont mélangées différemment pour chaque afficheur à quatre chiffres (Par contre, tous les chiffres <em>dans</em> un afficheur sont affichés selon les mêmes connection) !</p>
+<p>Du coup, vous pourriez savoir si les signaux <code>b</code> et <code>g</code> sont allumés, mais cela ne signifierait pas que les <em>segments</em> <code>b</code> et <code>g</code> seraient allumés. Le seul chiffre n'utilisant que deux segments est <code>1</code>, ça veut donc dire que les segments <code>c</code> et <code>f</code> sont supposés être allumés. Fort de cette seule information, vous ne pouvez pas savoir quel câble (<code>b</code>/<code>g</code>) va vers quel segment (<code>c</code>/<code>f</code>). Pour ceci, vous aurez besoin de collecter plus d'informations.</p>
+<p>Pour chaque afficheur, vous regardez les signaux changeants pendant un moment, notez <em>tous les dix motifs de signaux uniques</em> que vous y remarquez, puis notez une seule <em>valeur de sortie à quatre chiffres</em> (l'entrée de votre puzzle). En utilisant les motifs de signaux, vous devriez être capable de trouver quel motif correspond à quel chiffre.</p>
+<p>Par exemple, voici ce que vous pourriez observe comme entrée dans vos notes :</p>
+<pre class="fdd"><code>acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab |
+cdfeb fcadb cdfeb cdbaf</code></pre>
+<p>(L'entrée est ici sur deux lignes pour des raisons de clarté, mais elle est sur une ligne dans vos notes).</p>
+<p>Chaque entrée consiste en dix <em>motifs de signaux uniques</em>, un délimiteur <code>|</code>, et enfin la <em>valeur de sortie à quatre chiffres</em>. dans cette entrée, les mêmes connections câbles/segments sont toujours utilisées (bien que vous ne connaissiez pas les connections elles-mêmes). Les motifs de signaux uniques correspondent aux dix différentes manières desquelles le sous-marin essaie d'afficher des chiffres en utilisant les connections câble/segment de l'afficheur concerné. Étant donné que <code>7</code> est le seul chiffre utilisant trois segments, <code>dab</code> dans l'exemple ci-dessus signifie que pour afficher un <code>7</code>, les signaux <code>d</code>, <code>a</code> et <code>b</code> sont allumés. Étant donné que <code>4</code> est le seul chiffre utilisant quatre segments, <code>eafb</code> signifie que pour afficher un <code>4</code>, les signaux <code>e</code>, <code>a</code>, <code>f</code> et <code>b</code> sont allumés ; et ainsi de suite.</p>
+<p>Grâce à ces informations, vous devriez pouvoir trouver quelle combinaison de signaux correspond à chacun des dix chiffres. Ensuite, vous pourrez décoder les quatre chiffres de sortie. Hélas, dans l'exemple ci-dessus, tous les chiffres en sortie utilisent cinq segments et sont plus difficiles à déduire.</p>
+<p>Pour le moment, <em>ne considérez que les chiffres simples</em>. Considérez ce plus grand exemple :</p>
+<pre><code>be cfbegad cbdgef fgaecd cgeb fdcge agebfd fecdb fabcd edb |
+<em>fdgacbe</em> cefdb cefbgd <em>gcbe</em>
+edbfga begcd cbg gc gcadebf fbgde acbgfd abcde gfcbed gfec |
+fcgedb <em>cgb</em> <em>dgebacf</em> <em>gc</em>
+fgaebd cg bdaec gdafb agbcfd gdcbef bgcad gfac gcb cdgabef |
+<em>cg</em> <em>cg</em> fdcagb <em>cbg</em>
+fbegcd cbd adcefb dageb afcb bc aefdc ecdab fgdeca fcdbega |
+efabcd cedba gadfec <em>cb</em>
+aecbfdg fbg gf bafeg dbefa fcge gcbea fcaegb dgceab fcbdga |
+<em>gecf</em> <em>egdcabf</em> <em>bgf</em> bfgea
+fgeab ca afcebg bdacfeg cfaedg gcfdb baec bfadeg bafgc acf |
+<em>gebdcfa</em> <em>ecba</em> <em>ca</em> <em>fadegcb</em>
+dbcfg fgd bdegcaf fgec aegbdf ecdfab fbedc dacgb gdcebf gf |
+<em>cefg</em> dcbef <em>fcge</em> <em>gbcadfe</em>
+bdfegc cbegaf gecbf dfcage bdacg ed bedf ced adcbefg gebcd |
+<em>ed</em> bcgafe cdgba cbgef
+egadfb cdbfeg cegd fecab cgb gbdefca cg fgcdab egfdb bfceg |
+<em>gbdfcae</em> <em>bgc</em> <em>cg</em> <em>cgb</em>
+gcafb gcf dcaebfg ecagb gf abcdeg gaef cafbge fdbac fegbdc |
+<em>fgae</em> cfgab <em>fg</em> bagce</code></pre>
+<p>Puisque les chiffres <code>1</code>, <code>4</code>, <code>7</code> et <code>8</code> utilisent chacun un nombre unique de segments, vous pourrez sans doute deviner quelle combinaison de signaux correspond à ces chiffres. En ne comptant <em>que les chiffres de la valeur de sortie</em> (la partie après le <code>|</code> de chaque ligne), dans l'exemple ci-dessus, il y a <em><code>26</code></em> instances de chiffres utilisant un nombre unique de segments (mis en évidence ci-dessus).</p>
+<p><em>Dans la valeur de sortie, combien de fois les nombres <code>1</code>, <code>4</code>, <code>7</code> ou <code>8</code> apparaissent-ils?</em></p>
+</section> 
+<section id='translation_part_two'> 
+<h1 id="partie-deux----">--- Partie Deux ---</h1>
+<p>Grâce à un peu de déduction, vous devriez maintenant pouvoir détermine les chiffres restants. Considérez à nouveau l'exemple ci-dessus :</p>
+<pre class="fdd"><code>acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab |
+cdfeb fcadb cdfeb cdbaf</code></pre>
+<p>Après une analyse minutieuse, l'association entre les signaux des câbles et les segments ne font sens que dans cette configuration :</p>
+<pre class="fddd"><code> dddd
+e    a
+e    a
+ ffff
+g    b
+g    b
+ cccc</code></pre>
+<p>Ainsi, les motifs de signaux uniques correspondraient aux chiffre suivants :</p>
+<ul>
+<li>acedgfb: <code>8</code></li>
+<li>cdfbe: <code>5</code></li>
+<li>gcdfa: <code>2</code></li>
+<li>fbcad: <code>3</code></li>
+<li>dab: <code>7</code></li>
+<li>cefabd: <code>9</code></li>
+<li>cdfgeb: <code>6</code></li>
+<li>eafb: <code>4</code></li>
+<li>cagedb: <code>0</code></li>
+<li>ab: <code>1</code></li>
+</ul>
+<p>Ensuite, les quatre chiffres en sortie peuvent être décodés :</p>
+<ul>
+<li><code>cdfeb</code>: <code>5</code></li>
+<li><code>fcadb</code>: <code>3</code></li>
+<li><code>cdfeb</code>: <code>5</code></li>
+<li><code>cdbaf</code>: <code>3</code></li>
+</ul>
+<p>La valeur de sortie pour cette entrée est donc <em><code>5353</code></em>.</p>
+<p>En suivant le même procédé pour chaque entrée dans le deuxième exemple, le plus gros ci-dessus, la valeur de sortie de chaque entrée peut être déterminée :</p>
+<ul>
+<li><code>fdgacbe cefdb cefbgd gcbe</code>: <code>8394</code></li>
+<li><code>fcgedb cgb dgebacf gc</code>: <code>9781</code></li>
+<li><code>cg cg fdcagb cbg</code>: <code>1197</code></li>
+<li><code>efabcd cedba gadfec cb</code>: <code>9361</code></li>
+<li><code>gecf egdcabf bgf bfgea</code>: <code>4873</code></li>
+<li><code>gebdcfa ecba ca fadegcb</code>: <code>8418</code></li>
+<li><code>cefg dcbef fcge gbcadfe</code>: <code>4548</code></li>
+<li><code>ed bcgafe cdgba cbgef</code>: <code>1625</code></li>
+<li><code>gbdfcae bgc cg cgb</code>: <code>8717</code></li>
+<li><code>fgae cfgab fg bagce</code>: <code>4315</code></li>
+</ul>
+<p>Additionner toutes les sorties du plus grand exemple donne <em><code>61229</code></em>.</p>
+<p>Pour chaque entrée, déterminez toutes les connections câble/segment et décodez la valeur de sortie à quatre chiffre. <em>Qu'obtenez-vous si vous additionnez toutes les valeurs de sortie ?</em></p>
+</section> 
+</body> 
+</html> 
