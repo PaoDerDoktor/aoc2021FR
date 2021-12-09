@@ -1,0 +1,59 @@
+<!DOCTYPE html> 
+<html lang='fr'> 
+<head> 
+<link rel='stylesheet' type='text/css' href='../../../../skins/sc2020-translation.css'> 
+<meta name='day' content="day9"> 
+</head> 
+<body> 
+<section id='translation_part_one'> 
+<h1 id="jour-9-bassin-de-fumée----">--- Jour 9 : Bassin de Fumée ---</h1>
+<p>Ces grottes semblent être constituées de <a href="https://fr.wikipedia.org/wiki/Tunnel_de_lave">tunnels de lave</a>. Certaines parties sont même encore actives au niveau volcanique. De petites cheminées hydrothermales libèrent de la fumée dans les cavernes qui se dépose lentement comme de la pluie.</p>
+<p>Si vous pouvez modéliser la façon dont la fumée se déplace à travers les grottes, vous pourriez peut-être l'éviter et être bien plus en sécurité. Le sous-marin génère une carte de la hauteur du plancher océanique des cavernes alentours.</p>
+<p>La fumée se déplace vers le point le plus bas de la zone dans laquelle elle se trouve. Par exemple, prenez en compte la carte de hauteur suivante :</p>
+<pre><code>2<em>1</em>9994321<em>0</em>
+3987894921
+98<em>5</em>6789892
+8767896789
+989996<em>5</em>678</code></pre>
+<p>Chaque nombre corresponds à la hauteur d'un endroit, où <code>9</code> est au plus haut et <code>0</code> au plus bas.</p>
+<p>Votre premier objectif est de trouver les <em>points bas</em> - les endroits qui sont plus bas que tous ses endroits adjacents. La plupart des endroits ont quatre endroits adjacents (en haut, en bas, à gauche et à droite) ; les endroits sur la bordure ou dans un coin ont respectivement trois et deux endroits adjacents chacun (les diagonales ne comptent pas comme adjacentes).</p>
+<p>Dans l'exemple ci-dessus, il y a <em>quatre</em> points bas, tous mis en évidence : deux sont sur la première ligne (un <code>1</code> et un <code>0</code>), un autre est sur la troisième ligne (un <code>5</code>) et le dernier est sur la dernière ligne (encore un <code>5</code>). Tous les autres endroits sur la carte de hauteur ont des endroits adjacents plus bas, mais ne sont pas des points bas.</p>
+<p>Le <em>niveau de risque</em> d'un point bas est de <em>1 additionné à sa hauteur</em>. Dans l'exemple ci-dessus, les niveaux de risque des points bas sont <code>2</code>, <code>1</code>, <code>6</code> et <code>6</code>. La somme des niveaux de risque de tous les points bas de la carte de hauteur est donc <em><code>15</code></em></p>
+<p>Trouvez tous les points bas de la carte de hauteur. <em>Quelle est la somme des niveaux de risque de tous les points bas de votre carte de hauteur ?</em></p>
+</section> 
+<section id='translation_part_two'> 
+<h1 id="partie-deux----">--- Partie Deux ---</h1>
+<p>Ensuite, vous allez devoir trouver les plus grands bassins afin de savoir quelles zones éviter en priorité.</p>
+<p>Un <em>bassin</em> est l'ensemble de tous les droits tombant finalement dans un seul point bas. Ainsi, chaque point bas possède un bassin, même si certains sont tès petits. Les endroits avec une hauteur de `9`` ne sont pas comptés comme étant dans un bassin, et tous les autres endroits feront toujours partie d'exactement un seul bassin.</p>
+<p>La <em>taille</em> d'un bassin est le nombre d'endroits dans le bassin, incluant le point bas. L'exemple ci-dessus possède quatre bassins.</p>
+<p>Le bassin en supérieur-gauche, d'une taille de <code>3</code> :</p>
+<pre><code><em>21</em>99943210
+<em>3</em>987894921
+9856789892
+8767896789
+9899965678</code></pre>
+<p>Le bassin supérieur-droit, d'une taille de <code>9</code> :</p>
+<pre><code>21999<em>43210</em>
+398789<em>4</em>9<em>21</em>
+985678989<em>2</em>
+8767896789
+9899965678</code></pre>
+<p>Le bassin du milieu, d'une taille de <code>14</code> :</p>
+<pre><code>2199943210
+39<em>878</em>94921
+9<em>85678</em>9892
+<em>87678</em>96789
+9<em>8</em>99965678</code></pre>
+<p>Le bassin inférieur-droit, d'une taille de <code>9</code> :</p>
+<pre><code>2199943210
+3987894921
+9856789<em>8</em>92
+876789<em>678</em>9
+98999<em>65678</em></code></pre>
+Trouvez les trois plus grands bassins et multipliez leur tailles ensemble. Dans l'exemple ci-dessus, on trouve
+<pre><code>9 * 14 * 9 = <em>1134</em></code></pre>
+<p>.</p>
+<p><em>Que trouvez-vous si vous multipliez ensemble les tailles de chacun des trois plus grands bassins ?</em></p>
+</section> 
+</body> 
+</html> 
