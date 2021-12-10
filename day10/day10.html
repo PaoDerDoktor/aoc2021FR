@@ -1,0 +1,98 @@
+<!DOCTYPE html> 
+<html lang='fr'> 
+<head> 
+<link rel='stylesheet' type='text/css' href='../../../../skins/sc2020-translation.css'> 
+<meta name='day' content="day10"> 
+</head> 
+<body> 
+<section id='translation_part_one'> 
+<h1 id="jour-10-notation-de-syntaxe----">--- Jour 10 : Notation de Syntaxe ---</h1>
+<p>Vous avez demandé au sous-marin de déterminer le meilleur tracé pour sortir de ces profondes grottes, mais vous réponds seulement :</p>
+<pre class="submarineerror"><code>Erreur de syntaxe sur des lignes du sous-système de navigation : chacune d&#39;entre elles</code></pre>
+<p><em>Chacune d'entre elle ?!</em> les dégâts sont plus importants que ce que vous pensiez. Vous sortez une copie du sous-système de navigation (l'entrée de votre puzzle).</p>
+<p>La syntaxe du sous-système de navigation est faite de plusieurs lignes contenant des <em>tronçons</em>. Il y a un ou plusieurs tronçons sur chaque ligne, et les tronçons contiennent zéro ou plusieurs autres tronçons. Les tronçons adjacents ne sont séparés par aucun délimiteur : si un tronçon s'arrête, le tronçon suivant (s'il existe) peut démarrer immédiatement. Chaque tronçon doit être <em>ouvert</em> puis <em>fermé</em> avec l'une des quatre paires acceptables de caractères correspondants :</p>
+<ul>
+<li>Si un tronçon s'ouvre par <code>(</code>, il doit se fermer par <code>)</code>.</li>
+<li>Si un tronçon s'ouvre par <code>[</code>, il doit se fermer par <code>]</code>.</li>
+<li>Si un tronçon s'ouvre par <code>{</code>, il doit se fermer par <code>}</code>.</li>
+<li>Si un tronçon s'ouvre par <code>&lt;</code>, il doit se fermer par <code>&gt;</code>.</li>
+</ul>
+<p>Ainsi, <code>()</code> est un tronçon valide qui ne contient pas d'autre tronçon, comme <code>[]</code>. D'autres tronçons plus complexes mais valides sont <code>([])</code>, <code>{()()()}</code>, <code>&lt;([{}])&gt;</code>, <code>[&lt;&gt;({}){}[([])&lt;&gt;]]</code>, et même <code>(((((((((())))))))))</code> .</p>
+<p>Certaines lignes sont <em>incomplètes</em>, mais d'autres sont <em>corrompues</em>. Trouvez et retirez d'abord les lignes corrompues.</p>
+<p>Une ligne corrompue est une ligne où un tronçon <em>se ferme avec le mauvais caractère</em> - c'est-à-dire, où le caractère qui l'ouvre et celui qui le ferme ne forment pas une des paires listées plus haut.</p>
+<p>Des exemples de lignes corrompues sont <code>(]</code>, <code>{()()()&gt;</code>, <code>(((()))}</code>, et <code>&lt;([]){()}[{}])</code>. De tels tronçons peuvent apparaître n'importe où dans une ligne, et leur présence corrompt la ligne entière.</p>
+<p>Par exemple, considérer le sous-système de navigation suivant :</p>
+<pre class="navigation"><code>[({(&lt;(())[]&gt;[[{[]{&lt;()&lt;&gt;&gt;
+[(()[&lt;&gt;])]({[&lt;{&lt;&lt;[]&gt;&gt;(
+{([(&lt;{}[&lt;&gt;[]}&gt;{[]{[(&lt;()&gt;
+(((({&lt;&gt;}&lt;{&lt;{&lt;&gt;}{[]{[]{}
+[[&lt;[([]))&lt;([[{}[[()]]]
+[{[{({}]{}}([{[{{{}}([]
+{&lt;[[]]&gt;}&lt;{[{[{[]{()[[[]
+[&lt;(&lt;(&lt;(&lt;{}))&gt;&lt;([]([]()
+&lt;{([([[(&lt;&gt;()){}]&gt;(&lt;&lt;{{
+&lt;{([{{}}[&lt;[[[&lt;&gt;{}]]]&gt;[]]</code></pre>
+<p>Certaines de ces lignes ne sont pas corrompues mais simplement incomplètes, vous pouvez les ignorer pour l'instant. Les cinq lignes restantes sont corrompues :</p>
+<ul>
+<li><code>{([(&lt;{}[&lt;&gt;[]}&gt;{[]{[(&lt;()&gt;</code> - <code>]</code> attendu, mais <code>}</code> trouvé à la place.</li>
+<li><code>[[&lt;[([]))&lt;([[{}[[()]]]</code> - <code>]</code> attendu, mais <code>)</code> trouvé à la place.</li>
+<li><code>[{[{({}]{}}([{[{{{}}([]</code> - <code>)</code> attendu, mais <code>]</code> trouvé à la place.</li>
+<li><code>[&lt;(&lt;(&lt;(&lt;{}))&gt;&lt;([]([]()</code> - <code>&gt;</code> attendu, mais <code>)</code> trouvé à la place.</li>
+<li><code>&lt;{([([[(&lt;&gt;()){}]&gt;(&lt;&lt;{{</code> - <code>]</code> attendu, mais <code>&gt;</code> trouvé à la place.</li>
+</ul>
+<p>Arrêtez-vous à la première fermeture incorrecte sur chaque ligne.</p>
+<p>Saviez-vous que les vérificateurs syntaxiques font en fait des concours pour voir lequel est capable d'obtenir le meilleur score pour une erreur de syntaxe dans un fichier ? C'est vrai ! Pour calculer la note de l'erreur de syntaxe d'un fichier, prenez le <em>premier caractère erroné</em> de la ligne et regardez sa valeur dans la table suivante :</p>
+<ul>
+<li><code>)</code> : <code>3</code> points.</li>
+<li><code>]</code> : <code>57</code> points.</li>
+<li><code>}</code> : <code>1197</code> points.</li>
+<li><code>&gt;</code> : <code>25137</code> points.</li>
+</ul>
+Dans l'exemple ci-dessus, un <code>)</code> erroné est trouvé deux fois (
+<pre><code>2&ast;3 = <em>6</em></code></pre>
+points), un <code>]</code> erroné est trouvé une fois (<em><code>57</code></em> points), un <code>}</code> erroné est trouvé une fois (<em><code>1197</code></em> points), et un <code>&gt;</code> erroné est trouvé une fois (<em><code>25137</code></em> points). En conséquence, la note totale des erreurs de syntaxe pour ce fichier est de
+<pre><code>6+57+1197+25137 = <em>26397</em></code></pre>
+<p>points !</p>
+<p>Trouvez le premier caractère erroné de chaque ligne corrompue du sous-système de navigation. <em>Quel est la note totale des erreurs de syntaxe pour ces erreurs ?</em></p>
+</section> 
+<section id='translation_part_two'> 
+<h1 id="partie-deux----">--- Partie Deux ---</h1>
+<p>À présent, retirez les lignes corrompues. Les lignes restantes sont <em>incomplètes</em>.</p>
+<p>Les lignes incomplètes n'ont aucun caractère incorrect : à la place, il leur manque des caractères fermants à la fin de la ligne. Pour réparer le sous-système de navigation, vous devrez trouver <em>quelle séquence de caractères fermants</em> complète chaque tronçons de la ligne.</p>
+<p>Vous ne pouvez utiliser que des caractères fermants (<code>)</code>, <code>]</code>, <code>}</code> ou <code>&gt;</code>) et vous devez les ajouter dans le bon ordre pour que seules des paires acceptables soient formées et que tous les tronçons soient fermés.</p>
+<p>Dans l'exemple ci-dessus, cinq lignes sont incomplètes :</p>
+<ul>
+<li><code>[({(&lt;(())[]&gt;[[{[]{&lt;()&lt;&gt;&gt;</code> - Complétée en y ajoutant <code>}}]])})]</code>.</li>
+<li><code>[(()[&lt;&gt;])]({[&lt;{&lt;&lt;[]&gt;&gt;(</code> - Complétée en y ajoutant <code>)}&gt;]})</code>.</li>
+<li><code>(((({&lt;&gt;}&lt;{&lt;{&lt;&gt;}{[]{[]{}</code> - Complétée en y ajoutant <code>}}&gt;}&gt;))))</code>.</li>
+<li><code>{&lt;[[]]&gt;}&lt;{[{[{[]{()[[[]</code> - Complétée en y ajoutant <code>]]}}]}]}&gt;</code>.</li>
+<li><code>&lt;{([{{}}[&lt;[[[&lt;&gt;{}]]]&gt;[]]</code> - Complétée en y ajoutant <code>])}&gt;</code>.</li>
+</ul>
+<p>Saviez-vous que les outils d'autocomplétion ont <em>eux aussi</em> des concours ? C'est vrai ! La note est déterminée en considérant la chaîne de complétion caractère-par-caractère. Démarrez avec un score total de <code>0</code>. Ensuite, pour chaque caractère, multipliez le score total par 5 puis augmentez le score total par la valeur en points donnée pour la caractère dans la table suivante :</p>
+<ul>
+<li><code>)</code> : <code>1</code> point.</li>
+<li><code>]</code> : <code>2</code> points.</li>
+<li><code>}</code> : <code>3</code> points.</li>
+<li><code>&gt;</code> : <code>4</code> points.</li>
+</ul>
+<p>Ainsi, la dernière chaîne de complétion plus haut - <code>])}&gt;</code> - serait notée de cette manière :</p>
+<ul>
+<li>Commencez avec une note totale de <code>0</code></li>
+<li>Multipliez la note totale par 5 pour obtenir <code>0</code>, puis ajoutez la valeur de <code>]</code> (2) pour obtenir une nouvelle note de <code>2</code></li>
+<li>Multipliez la note totale par 5 pour obtenir <code>10</code>, puis ajoutez la valeur de <code>)</code> (1) pour obtenir une nouvelle note de <code>11</code></li>
+<li>Multipliez la note totale par 5 pour obtenir <code>55</code>, puis ajoutez la valeur de <code>}</code> (3) pour obtenir une nouvelle note de <code>58</code></li>
+<li>Multipliez la note totale par 5 pour obtenir <code>290</code>, puis ajoutez la valeur de <code>}</code> (4) pour obtenir une nouvelle note de <code>294</code></li>
+</ul>
+<p>Les cinq chaînes de complétion des cinq lignes ont ces notes totales :</p>
+<ul>
+<li><code>}}]])})]</code> - 288957 points totaux.</li>
+<li><code>)}&gt;]})</code> - 5566 points totaux.</li>
+<li><code>}}&gt;}&gt;))))</code> - 1480781 points totaux.</li>
+<li><code>]]}}]}]}&gt;</code> - 995444 points totaux.</li>
+<li><code>])}&gt;</code> - 294 points totaux.</li>
+</ul>
+<p>Les outils d'autocomplétion sont des machins bizarres : le gagnant est trouvé en <em>triant</em> toutes les notes et en prenant la note du <em>milieu</em> (il y aura toujours un nombre impair de notes à traiter). Dans cet exemple, la note médiane est <em><code>288957</code></em> puisque qu'il y a le même nombre de notes plus petites et plus grandes qu'elle.</p>
+<p>Trouvez les chaînes de complétion pour chacune des lignes incomplètes, notez les chaînes de complétion, puis triez les notes. <em>Quelle est la note médiane ?</em></p>
+</section> 
+</body> 
+</html> 
