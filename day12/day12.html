@@ -1,0 +1,136 @@
+<!DOCTYPE html> 
+<html lang='fr'> 
+<head> 
+<link rel='stylesheet' type='text/css' href='../../../../skins/sc2020-translation.css'> 
+<meta name='day' content="day12"> 
+</head> 
+<body> 
+<section id='translation_part_one'> 
+<h1 id="jour-12-chercher-un-passage----">--- Jour 12 : Chercher un passage ---</h1>
+<p>Puisque les sous-systèmes sous-terrains de votre sous-marin fonctionnent de manière sous-optimale, la seule manière pour vous de sortir de ces cavernes est de trouver un chemin par vous-même. Pas seulement <em>un</em> chemin - la seule façon de savoir si vous avez trouvé le <em>meilleur</em> chemin est de <em>tous</em> les trouver.</p>
+<p>Heureusement, la plupart des senseurs marchent encore, vous créez donc une grossière carte des cavernes restantes (l'entrée de votre puzzle). Par exemple:</p>
+<pre class="cavemap"><code>start-A
+start-b
+A-c
+A-b
+b-d
+A-end
+b-end</code></pre>
+<p>Ceci est une liste représentant les connexions des grottes. Vous démarrez dans une grotte nommée <code>start</code>, et votre destination est une grotte nommée <code>end</code>. Une ligne <code>b-d</code> signifie que la grotte <code>b</code> communique avec la grotte <code>d</code> - vous pouvez vous déplacer de l'une à l'autre.</p>
+<p>Du coup, le système ci-dessus ressemble grossièrement à ça :</p>
+<pre class="cavegraph"><code>    start
+    /   \
+c--A-----b--d
+    \   /
+     end</code></pre>
+<p>Votre but est de trouver le nombre de <em>chemins</em> distincts démarrant à <code>start</code>, se terminant à <code>end</code>, et ne visitant pas la même petite grotte plus d'une fois. Il y a deux types de grottes les <em>grandes</em> grottes (écrite en majuscules, comme <code>A</code>) et les <em>petites</em> grottes (écrites en minuscules, comme <code>b</code>). Visiter une petite grotte deux fois serait une perte de temps, mais les grandes grottes sont assez vastes pour que les visiter plusieurs fois vaille le coup. Alors, tous les chemins que vous trouverez devraient <em>passer par les petites grottes une fois au maximum</em>, et peut <em>visiter les grandes grottes autant que nécessaire.</em></p>
+<p>Avec ces règles, il y a <em><code>10</code></em> chemins à travers cet exemple de système de grottes :</p>
+<pre class="csv"><code>start,A,b,A,c,A,end
+start,A,b,A,end
+start,A,b,end
+start,A,c,A,b,A,end
+start,A,c,A,b,end
+start,A,c,A,end
+start,A,end
+start,b,A,c,A,end
+start,b,A,end
+start,b,end</code></pre>
+<p>(Chaque ligne de la liste ci-dessus correspond à un eul chemin, les grottes par lesquelles passent ce chemin sont listées dans l'ordre où elles sont visitées et séparées par des virgules)</p>
+<p>Notez que dans ce système de grottes, la grotte <code>d</code> n'est jamais visitée par aucun chemin : pour ce faire, il faudrait passer deux fois par la grotte <code>b</code> (une fois en allant vers <code>d</code> et une autre fois en repartant de <code>d</code>), et puisque la grotte <code>b</code> est petite, ce n'est pas autorisé.</p>
+<p>Voici un exemple un peu plus grand :</p>
+<pre class="cavemap"><code>dc-end
+HN-start
+start-kj
+dc-start
+dc-HN
+LN-dc
+HN-end
+kj-sa
+kj-HN
+kj-dc</code></pre>
+<p>Il y a <code>19</code> chemins le traversant, ceux-ci :</p>
+<pre class="csv"><code>start,HN,dc,HN,end
+start,HN,dc,HN,kj,HN,end
+start,HN,dc,end
+start,HN,dc,kj,HN,end
+start,HN,end
+start,HN,kj,HN,dc,HN,end
+start,HN,kj,HN,dc,end
+start,HN,kj,HN,end
+start,HN,kj,dc,HN,end
+start,HN,kj,dc,end
+start,dc,HN,end
+start,dc,HN,kj,HN,end
+start,dc,end
+start,dc,kj,HN,end
+start,kj,HN,dc,HN,end
+start,kj,HN,dc,end
+start,kj,HN,end
+start,kj,dc,HN,end
+start,kj,dc,end</code></pre>
+<p>Enfin, voici un exemple encore plus gros avec <code>226</code> chemins le traversant :</p>
+<pre class="cavemap"><code>fs-end
+he-DX
+fs-he
+start-DX
+pj-DX
+end-zg
+zg-sl
+zg-pj
+pj-he
+RW-he
+fs-DX
+pj-RW
+zg-RW
+start-pj
+he-WI
+zg-he
+pj-fs
+start-RW</code></pre>
+<p><em>Combien de chemins traversant le système de grottes et ne passant pas plus d'une fois par chaque petite grotte existent-ils ?</em></p>
+</section> 
+<section id='translation_part_two'> 
+<h1 id="partie-deux----">--- Partie Deux ---</h1>
+<p>Après avoir revu tous les chemins disponibles, vous réalisez que vous avez peut-être le temps de passer par une seule petite caverne <em>deux fois</em>. En d'autres mots, les grandes grottes peuvent être visitées autant de fois que nécessaire, une seule petite grotte peut être visitée deux fois, et toutes les autres petites grottes ne peuvent être visitées qu'une seule fois au maximum. Cependant, les grottes nommées <code>start</code> et <code>end</code> ne peuvent qu'être visitées <em>exactement une fois chacune</em> : une fois que vous quittez la grotte de départ, vous ne pouvez plus y retourner ; et une fois que vous atteignez la grotte <code>end</code>, le chemin se termine immédiatement.</p>
+<p>À présent, les <code>36</code> chemins possibles du premier exemple sont :</p>
+<pre class="csv"><code>start,A,b,A,b,A,c,A,end
+start,A,b,A,b,A,end
+start,A,b,A,b,end
+start,A,b,A,c,A,b,A,end
+start,A,b,A,c,A,b,end
+start,A,b,A,c,A,c,A,end
+start,A,b,A,c,A,end
+start,A,b,A,end
+start,A,b,d,b,A,c,A,end
+start,A,b,d,b,A,end
+start,A,b,d,b,end
+start,A,b,end
+start,A,c,A,b,A,b,A,end
+start,A,c,A,b,A,b,end
+start,A,c,A,b,A,c,A,end
+start,A,c,A,b,A,end
+start,A,c,A,b,d,b,A,end
+start,A,c,A,b,d,b,end
+start,A,c,A,b,end
+start,A,c,A,c,A,b,A,end
+start,A,c,A,c,A,b,end
+start,A,c,A,c,A,end
+start,A,c,A,end
+start,A,end
+start,b,A,b,A,c,A,end
+start,b,A,b,A,end
+start,b,A,b,end
+start,b,A,c,A,b,A,end
+start,b,A,c,A,b,end
+start,b,A,c,A,c,A,end
+start,b,A,c,A,end
+start,b,A,end
+start,b,d,b,A,c,A,end
+start,b,d,b,A,end
+start,b,d,b,end
+start,b,end</code></pre>
+<p>L'exemple un peu plus gros ci-dessus est maintenant traversé par <code>103</code> chemins, alors que l'exemple plus gros encore est maintenant traversé par <code>3509</code> chemins.</p>
+<p>Étant données ces nouvelles règles, <em>combien y-a-t'il de chemins traversant le système de grottes ?</em></p>
+</section> 
+</body> 
+</html> 
