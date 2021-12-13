@@ -1,0 +1,104 @@
+<!DOCTYPE html> 
+<html lang='fr'> 
+<head> 
+<link rel='stylesheet' type='text/css' href='../../../../skins/sc2020-translation.css'> 
+<meta name='day' content="day13"> 
+</head> 
+<body> 
+<section id='translation_part_one'> 
+<h1 id="jour-13-origami-transparent----">--- Jour 13 : Origami Transparent ---</h1>
+<p>Vous atteignez une nouvelle région volcaniquement active des grottes. Ce serait bien si vous pouviez récupérer une sorte d'image thermique afin que vous puissiez connaître au préalable quelles grottes seront trop chaudes pour votre sous-marin.</p>
+<p>Heureusement, le sous-marin semble être équipé d'une caméra thermique ! Quand vous l'activez, vous êtes accueilli par ce message :</p>
+<pre class="log"><code>Félicitations pour votre achat ! Afin d&#39;activer ce système d&#39;imagerie par caméra infrarouge, entrez le code figurant sur la page 1 de votre manuel.</code></pre>
+<p>Apparemment, les elfes n'ont jamais utilisé cette fonctionnalité. À votre grande surprise, vous parvenez à trouver le manuel. Alors que vous alliez l'ouvrir, la page 1 tombe : c'est un grand <a href="https://fr.wikipedia.org/wiki/Transparent_(projection)">transparent</a> ! Le transparent est marqué de plusieurs points et inclus des instructions sur comment le plier (l'entrée de votre puzzle). Par exemple :</p>
+<pre class="transparent"><code>6,10
+0,14
+9,10
+0,3
+10,4
+4,11
+6,0
+6,12
+4,1
+0,13
+10,12
+3,4
+3,0
+8,4
+1,10
+2,14
+8,10
+9,0
+
+fold along y=7
+fold along x=5</code></pre>
+<p>La première section est une liste de points sur le papier transparent. <code>0,0</code> représente le coin supérieur-gauche. La première valeur, <code>x</code>, augmente vers la droite. La seconde valeur, <code>y</code>, augmente vers le bas. Ainsi. les coordonnées <code>3,0</code> sont à droite de <code>0,0</code> et les coordonnées <code>0,7</code> sont en-dessous de <code>0,0</code>. Les coordonnées dans cette exemple forment le schéma suivant, où <code>#</code> est un point sur le transparent et <code>.</code> est une position vide, non-marquée :</p>
+<pre class="dots"><code>...#..#..#.
+....#......
+...........
+#..........
+...#....#.#
+...........
+...........
+...........
+...........
+...........
+.#....#.##.
+....#......
+......#...#
+#..........
+#.#........</code></pre>
+<p>Ensuite se trouve une série d'<em>instructions de pliage</em>. Chaque instruction indique une ligne sur le transparent et dit s'il faut le plier vers le <em>haut</em> (pour les lignes horizontales <code>y=...</code>) où vers la <em>gauche</em> (pour les lignes verticales <code>x=...</code>). Dans cet exemple, la première instruction de pliage est <code>fold along y=7</code>, ce qui désigne la ligne formée par toutes les positions où <code>y</code> vaut <code>7</code> (marquées ici d'un <code>-</code>) :</p>
+<pre class="dots"><code>...#..#..#.
+....#......
+...........
+#..........
+...#....#.#
+...........
+...........
+-----------
+...........
+...........
+.#....#.##.
+....#......
+......#...#
+#..........
+#.#........</code></pre>
+<p>Puisque c'est une ligne horizontale, pliez le transparent à sa moitié <em>vers le haut</em>. Certains des points peuvent finir par se superposer une fois le papier plié, mais aucun point n'apparaîtra jamais sur une ligne de pliage. Le résultat de ce pliage donne ceci :</p>
+<pre class="dots"><code>#.##..#..#.
+#...#......
+......#...#
+#...#......
+.#.#..#.###
+...........
+...........</code></pre>
+<p>Il y a maintenant seulement <code>17</code> points visibles.</p>
+<p>Remarquez, par exemple, les deux points dans le coin inférieur-gauche avant que le transparent ne soit plié. Une fois le pliage terminé, ces points apparaissent dans le coin supérieur-gauche (à <code>0,0</code> et <code>0,1</code>). Comme le papier est transparent, le point juste en-dessous d'eux (à <code>0,3</code>) reste visible, vu qu'il peut être aperçu à travers le transparent lui-même.</p>
+<p>Remarquez aussi que certains points finissent par <em>se superposer</em> ; dans ce cas, les points fusionnent et deviennent un seul point.</p>
+<p>La deuxième instruction de pliage est <code>fold around x=5</code>, ce qui indique la ligne suivante :</p>
+<pre class="dots"><code>#.##.|#..#.
+#...#|.....
+.....|#...#
+#...#|.....
+.#.#.|#.###
+.....|.....
+.....|.....</code></pre>
+<p>Puisque c'est une ligne verticale, pliez <em>vers la gauche</em> :</p>
+<pre class="dots"><code>#####
+#...#
+#...#
+#...#
+#####
+.....
+.....</code></pre>
+<p>Ces instructions ont formé un carré !</p>
+<p>Le transparent est plutôt grand, donc contentez-vous pour l'instant de faire la premier pliage. Après le premier pliage, dans l'exemple ci-dessus, <em><code>17</code></em> points sont visibles - les points finissant par se superposer après le premier pliage comptent comme un seul point.</p>
+<p><em>Combien de points sont visibles après n'avoir terminé que le premier pliage de votre transparent ?</em></p>
+</section> 
+<section id='translation_part_two'> 
+<h1 id="partie-deux----">--- Partie Deux ---</h1>
+<p>Terminez de plier votre transparent en suivant ses instructions. Le manuel dit que le code est toujours composé de <em>huit lettres majuscules</em>.</p>
+<p><em>Quel code devez-vous entrer pour activer le système d'imagerie à caméra thermique ?</em></p>
+</section> 
+</body> 
+</html> 
