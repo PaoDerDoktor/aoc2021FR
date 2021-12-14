@@ -1,0 +1,61 @@
+<!DOCTYPE html> 
+<html lang='fr'> 
+<head> 
+<link rel='stylesheet' type='text/css' href='../../../../skins/sc2020-translation.css'> 
+<meta name='day' content="day14"> 
+</head> 
+<body> 
+<section id='translation_part_one'> 
+<h1 id="jour-14-polymérisation-étendue----">--- Jour 14 : Polymérisation étendue ---</h1>
+<p>L'immense pression à cette profondeur commence à peser lourdement sur votre sous-marin. Le sous-marin possède un équipement de <a href="https://fr.wikipedia.org/wiki/Polym%C3%A9risation">Polymérisation</a> capable de produire des matériaux pouvant renforcer le sous-marin, et les cavernes volcaniquement actives alentours devraient vous apporter les éléments en entrée en quantités suffisantes.</p>
+<p>Le manuel du sous-marin contient des instructions pour trouver la formule de polymère optimale. Pour être exact, il offre un <em>patron de polymère</em> et une liste de règle d'<em>insertion dans des paires</em> (l'entrée de votre puzzle). Vous avez simplement besoin de trouver quel polymère résultera de la répétition du processus d'insertion plusieurs fois.</p>
+<p>Par exemple :</p>
+<pre class="polymerization"><code>NNCB
+
+CH -&gt; B
+HH -&gt; N
+CB -&gt; H
+NH -&gt; C
+HB -&gt; C
+HC -&gt; B
+HN -&gt; C
+NN -&gt; C
+BH -&gt; H
+NC -&gt; B
+NB -&gt; B
+BN -&gt; B
+BB -&gt; N
+BC -&gt; B
+CC -&gt; N
+CN -&gt; C</code></pre>
+<p>La première ligne est le <em>patron de polymère</em> - il s'agit du point de départ du procédé.</p>
+<p>La section suivante définit les règles d'<em>insertion dans les paires</em>. Une règle comme <code>AB -&gt; C</code> signifie que quand des éléments <code>A</code> et<code>B</code> sont directement adjacents, un élément <code>C</code> doit être inséré entre eux. Les insertions se déroulent toutes simultanément.</p>
+<p>Ainsi, en partant du patron de polymère <code>NNCB</code>, le premier pas traite simultanément les trois paires :</p>
+<ul>
+<li>La première paire (<code>NN</code>) correspond à la règle <code>NN -&gt; C</code>, l'élément <em><code>C</code></em> est inséré entre le premier <code>N</code> et le deuxième <code>N</code>.</li>
+<li>La première paire (<code>NC</code>) correspond à la règle <code>NC -&gt; B</code>, l'élément <em><code>B</code></em> est inséré entre l'élément <code>N</code> et l'élément <code>C</code>.</li>
+<li>La première paire (<code>CB</code>) correspond à la règle <code>CB -&gt; H</code>, l'élément <em><code>H</code></em> est inséré entre l'élément <code>C</code> et l'élément <code>B</code>.</li>
+</ul>
+<p>Notez que les paires se superposent : le deuxième élément d'une paire est le premier élément de la paire suivante. De plus, puisque toutes les paires sont traitées simultanément, les éléments insérés ne sont pas considérés comme faisant partie d'une paire jusqu'à l'étape suivante.</p>
+Après le premier tour de ce processus, le polymère devient
+<pre><code>N<em>C</em>N<em>B</em>C<em>H</em>B</code></pre>
+<p>.</p>
+<p>Voici les résultats pour quelques étapes en utilisant les règles ci-dessus :</p>
+<pre class="polymerization-results"><code>Template:     NNCB
+After step 1: NCNBCHB
+After step 2: NBCCNBBBCBHCB
+After step 3: NBBBCNCCNBBNBNBBCHBHHBCHB
+After step 4: NBBNBNBBCCNBCNCCNBBNBBNBBBNBBNBBCBHCBHHNHCBBCBHCB</code></pre>
+Ce polymère grandit rapidement. Après l'étape <code>5</code>, il possède <code>97</code> éléments ; après l'étape <code>10</code>, il possède <code>3073</code> éléments. Après l'étape <code>10</code>, <code>B</code> y est présent <code>1749</code> fois, <code>C</code> y est présent <code>298</code> fois, <code>H</code> y est présent <code>161</code> fois et <code>N</code> y est présent <code>865</code> fois ; prendre la quantité de l'élément le plus commun (<code>B</code>, <code>1749</code>) et y soustraire la quantité de l'élément le moins commun (<code>H</code>, <code>161</code>) produit
+<pre><code>1749 - 161 = <em>1588</em></code></pre>
+<p>.</p>
+<p>Appliquez 10 étapes d'insertions dans le patron de polymère et trouvez les élément le plus et le moins communs dans le résultat. <em>Qu'obtenez-vous si vous prenez la quantité de l'élément le plus commun et que vous y soustrayez la quantité de l'élément le moins commun ?</em></p>
+</section> 
+<section id='translation_part_two'> 
+<h1 id="partie-deux----">--- Partie Deux ---</h1>
+<p>Le polymère résultant n'est pas du tout assez fort pour renforcer le sous-marin. Vous aurez besoin de plus d'étapes d'insertions ; un total de <em>40 étapes</em> devrait suffire.</p>
+<p>Dans l'exemple ci-dessus, l'élément le plus commun est <code>B</code> (apparaissant <code>2192039569602</code> fois) et l'élément le moins commun est <code>H</code> (apparaissant <code>3849876073</code> fois) ; la soustraction donne alors <em><code>2188189693529</code></em>.</p>
+<p>Appliquez <em>40</em> étapes d'insertion dans les paires dans le patron de polymère et trouvez les élément les plus et moins communs dans le résultat. <em>Qu'obtenez-vous si vous prenez la quantité de l'élément le plus commun et que vous y soustrayez la quantité de l'élément le moins commun ?</em></p>
+</section> 
+</body> 
+</html> 
