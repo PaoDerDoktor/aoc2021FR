@@ -1,0 +1,114 @@
+<!DOCTYPE html> 
+<html lang='fr'> 
+<head> 
+<link rel='stylesheet' type='text/css' href='../../../../skins/sc2020-translation.css'> 
+<meta name='day' content="day16"> 
+</head> 
+<body> 
+<section id='translation_part_one'> 
+<h1 id="décodeur-de-paquets----">--- Décodeur de Paquets ---</h1>
+<p>Alors que vous quittez le réseau de grottes pour arriver en eaux libres, vous recevez une transmission des elfes depuis le bateau.</p>
+<p>La transmission a été émise en utilisant le Buoyancy Interchange Transmission System (BITS), en français le Système de transmission par échange de flottage, une méthode empaquetant des expressions numériques dans une séquence binaire. L'ordinateur de votre sous-marin a sauvegardé cette transmission en format <a href="https://fr.wikipedia.org/wiki/Syst%C3%A8me_hexad%C3%A9cimal">hexadécimal</a> (l'entrée de votre puzzle).</p>
+<p>Le premier pas pour décoder le message est de convertir la représentation hexadécimale en binaire. Chaque caractère hexadécimal correspond à quatre bits de données binaires :</p>
+<pre class="bittohex"><code>0 = 0000
+1 = 0001
+2 = 0010
+3 = 0011
+4 = 0100
+5 = 0101
+6 = 0110
+7 = 0111
+8 = 1000
+9 = 1001
+A = 1010
+B = 1011
+C = 1100
+D = 1101
+E = 1110
+F = 1111</code></pre>
+<p>La transmission BITS contient un sul <em>paquet</em> à sa couche la plus extérieure qui contient lui-même d'autres paquets. La représentation hexadécimale de ce paquet peut encoder quelques <code>0</code> supplémentaires à la fin ; ceux-ci ne font pas partie de la transmission et doivent être ignorés.</p>
+<p>Chaque paquet démarre par un en-tête standardisé : les trois premiers bits encodent la <em>version</em> du paquet, et les trois suivants encodent l'<em>identifiant de type</em> du paquet. Ces deux valeurs sont des nombres ; tous les nombres encodés dans un paquet sont représentés avec le bit poids fort en premier (à gauche donc). Par exemple, une version encodée en tant que <code>100</code> représente le nombre <code>4</code>.</p>
+<p>Les paquets avec l'identifiant de type <code>4</code> représente une <em>valeur littérale</em>. Les paquets de valeur littérale encodent un seul nombre binaire. À cette fin, le nombre binaire est rembourré avec des zéros en tête jusqu'à ce que sa longueur soit multiple de quatre, est ensuite séparé en groupes de quatre bits. Chaque groupe est préfixé par un bit de valeur <code>1</code>, à l'exception du dernier groupe, préfixé lui par un bit de valeur <code>0</code>. Ces groupes de cinq bits suivent immédiatement l'en-tête du paquet. Par exemple, la chaîne hexadécimale ``D2FE28```devient :</p>
+<pre class="bittag"><code>110100101111111000101000
+VVVTTTAAAAABBBBBCCCCC</code></pre>
+<p>En-dessous de chaque bit se trouve un identifieur indiquant son rôle:</p>
+<ul>
+<li>Les trois bits identifiés d'un <code>V</code> (<code>110</code>) sont la version du paquet, <code>6</code>.</li>
+<li>Les trois bits identifiés d'un <code>T</code> (<code>100</code>) sont l'identifiant de type du paquet, <code>4</code>, ce qui signifie que le paquet est une valeur littérale.</li>
+<li>Les cinq bits identifiés d'un <code>A</code> (<code>10111</code>) commencent avec un <code>1</code> (pas le dernier groupe, continuez le traitement) et contiennent les quatre premiers bits du nombre, <code>0111</code>.</li>
+<li>Les cinq bits identifiés d'un <code>B</code> (<code>11110</code>) commencent avec un <code>1</code> (pas le dernier groupe, continuez le traitement) et contiennent les quatre bits suivants du nombre, <code>1110</code>.</li>
+<li>Les cinq bits identifiés d'un <code>C</code> (<code>0010</code>) commencent avec un <code>1</code> (dernier groupe, fin du paquet) et contiennent les quatre derniers bits du nombre, <code>1110</code>.</li>
+<li>Les trois bits de valeur <code>0</code> sans identifieur sont des bits en trop, existant à cause de la représentation hexadécimale, et doivent être ignorés.</li>
+</ul>
+<p>Ainsi, le paquet représente une valeur littérale de représentation binaire <code>011111100101</code>, soit en décimal <code>2021</code>.</p>
+<p>N'importe quel autre type de paquet (n'importe quel paquet avec un identifiant de type différent de <code>4</code>) représente un <em>opérateur</em> qui effectue une forme de calcul sur un ou plusieurs sous-paquets contenus en lui. Pour l'instant, les opérations spécifiques ne sont pas importantes, concentrez-vous sur la récupération de la hiérarchie des sous-paquets.</p>
+<p>Un paquet opérateur contient un ou plusieurs paquets. Pour indiquer quelles données binaires successives forment ses sous-paquets, un paquet opérateur peut utiliser l'un des deux modes disponibles, indiqué par le bit suivant immédiatement l'en-tête, appelé l'<em>identifiant de type de longueur</em> :</p>
+<ul>
+<li>Si l'identifiant de type de longueur vaut <code>0</code>, alors les <em>15</em> bits suivants sont un nombre qui représente la <em>longueur total en bits</em> des sous-paquets contenus dans ce paquet.</li>
+<li>Si l'identifiant de type de longueur vaut <code>1</code>, alors les <em>11</em> bits suivants sont un nombre qui représente le <em>nombre de sous-paquets</em> contenus directement dans ce paquet.</li>
+</ul>
+<p>Enfin, après l'identifiant de type de longueur et le champs de 15 ou 11 bits, les sous-paquets apparaissent.</p>
+<p>Par exemple, la chaîne hexadécimale <code>38006F45291200</code> représente un opérateur de paquet avec un identifiant de type de longueur de <code>0</code> contenant deux sous-paquets :</p>
+<pre class="bittag"><code>00111000000000000110111101000101001010010001001000000000
+VVVTTTILLLLLLLLLLLLLLLAAAAAAAAAAABBBBBBBBBBBBBBBB</code></pre>
+<ul>
+<li>Les trois bits identifiés d'un <code>V</code> (<code>001</code>) sont la version du paquet, <code>1</code>.</li>
+<li>Les trois bits identifiés d'un <code>T</code> (<code>110</code>) sont l'identifiant de type du paquet, <code>6</code>, ce qui signifie que le paquet est une opérateur.</li>
+<li>Le bit identifié d'un <code>I</code> (<code>0</code>) est l'identifiant de type de longueur, qui indique que la longueur est un nombre sur 15 bits représentant le nombre de bits total des sous-paquets.</li>
+<li>Les 15 bits identifiés d'un <code>L</code> (<code>000000000011011000000000011011</code>) contiennent la longueur des sous-paquets en bits, <code>27</code>.</li>
+<li>Les 11 bits identifiés d'un <code>A</code> contiennent le premier sous-paquet, une valeur littérale représentant le nombre <code>10</code>.</li>
+<li>Les 11 bits identifiés d'un <code>B</code> contiennent le deuxième sous-paquet, une valeur littérale représentant le nombre <code>20</code>.</li>
+</ul>
+<p>Après avoir lu les 11 et 16 bits de données des sous-paquets, la longueur totale indiquée en <code>L</code> (27) est atteinte, et le traitement de ce paquet s'arrête.</p>
+<p>Autre exemple, la chaîne hexadécimale <code>EE00D40C823060</code> d'identifiant de type de longueur <code>1</code> contient trois sous-paquets :</p>
+<pre class="bittag"><code>11101110000000001101010000001100100000100011000001100000
+VVVTTTILLLLLLLLLLLAAAAAAAAAAABBBBBBBBBBBCCCCCCCCCCC</code></pre>
+<ul>
+<li>Les trois bits identifiés d'un <code>V</code> (<code>111</code>) sont la version du paquet, <code>7</code>.</li>
+<li>Les trois bits identifiés d'un <code>T</code> (<code>011</code>) sont l'identifiant de type du paquet, <code>3</code>, ce qui signifie que le paquet est une opérateur.</li>
+<li>Le bit identifié d'un <code>I</code> (<code>1</code>) est l'identifiant de type de longueur, qui indique que la longueur est un nombre sur 11 bits représentant le nombre de sous-paquets.</li>
+<li>Les 11 bits identifiés d'un <code>L</code> (<code>00000000011</code>) contiennent la longueur des sous-paquets en bits, <code>3</code>.</li>
+<li>Les 11 bits identifiés d'un <code>A</code> contiennent le premier sous-paquet, une valeur littérale représentant le nombre <code>1</code>.</li>
+<li>Les 11 bits identifiés d'un <code>B</code> contiennent le deuxième sous-paquet, une valeur littérale représentant le nombre <code>2</code>.</li>
+<li>Les 11 bits identifiés d'un <code>C</code> contiennent le troisième sous-paquet, une valeur littérale représentant le nombre <code>3</code>.</li>
+</ul>
+<p>Après avoir lu les 3 sous-paquets, le nombre de sous-paquets indiqué en <code>L</code> (3) est atteint et le traitement de ce paquet s'arrête.</p>
+<p>Pour le moment, analysez la hiérarchie des paquets au fil de la transmission et <em>additionnez tous les numéros de version</em>.</p>
+<p>Voici quelques exemples de transmission encodées en hexadécimal supplémentaires :</p>
+<ul>
+<li><code>8A004A801A8002F478</code> représente un paquet opérateur (version 4) contenant un paquet opérateur (version 1) contenant lui une valeur littérale (version 6) ; ce paquet a une somme de versions de <em><code>16</code></em></li>
+<li><code>620080001611562C8802118E34</code> représente un paquet opérateur (version 3) contenant deux sous-paquets ; chaque sous-paquet est un paquet opérateur contenant deux valeurs littérales. ce paquet a une somme de versions de <em><code>12</code></em>.</li>
+<li><code>C0015000016115A2E0802F182340</code> possède la même structure que l'exemple précédent, mais le paquet extérieur utilise un identifiant de type de longueur différent. Ce paquet a une somme de versions de <em><code>23</code></em>.</li>
+<li><code>A0016C880162017C3686B18A3D4780</code> est un paquet opérateur contenant un paquet opérateur contenant lui-même un paquet opérateur contenant, lui, cinq valeurs littérales. Ce paquet a une somme de versions de <em><code>31</code></em>.</li>
+</ul>
+<p>Décodez la structure de cotre transmission BITS encodée en hexadécimal, <em>qu'obtenez-vous si vous additionnez les numéros de version de tous les paquets ?</em></p>
+</section> 
+<section id='translation_part_two'> 
+<h1 id="partie-deux----">--- Partie Deux ---</h1>
+<p>Maintenant que vous avez décodé la structure de votre transmission, vous pouvez calculer la valeur de l'expression qu'elle représente.</p>
+<p>Les valeurs littérales (identifiant de type <code>4</code>) représentent un seul nombre, comme décrit plus haut. Les autres identifiants de types sont plus intéressants :</p>
+<ul>
+<li>Les paquets avec un identifiant de type <code>0</code> sont des paquets <em>somme</em> - leur valeur est la somme des valeurs de leurs sous-paquets. S'ils n'ont qu'un sous-paquet, leur valeur est la valeur de leur sous-paquet.</li>
+<li>Les paquets avec un identifiant de type <code>1</code> sont des paquets <em>produit</em> - leur valeur est le produit des valeurs de leurs sous-paquets. S'ils n'ont qu'un sous-paquet, leur valeur est la valeur de leur sous-paquet.</li>
+<li>Les paquets avec un identifiant de type <code>2</code> sont des paquets <em>minimum</em> - leur valeur est le minimum des valeurs de leurs sous-paquets.</li>
+<li>Les paquets avec un identifiant de type <code>3</code> sont des paquets <em>maximum</em> - leur valeur est le maximum des valeurs de leurs sous-paquets.</li>
+<li>Les paquets avec un identifiant de type <code>5</code> sont des paquets <em>plus-grand-que</em> - leur valeur est de <em>1</em> si la valeur du premier sous-paquet est plus grande que la valeur de leur second sous-paquet ; sinon leur valeur est de <em>0</em>. Ces paquets ont toujours exactement deux sous-paquets.</li>
+<li>Les paquets avec un identifiant de type <code>6</code> sont des paquets <em>plus-petit-que</em> - leur valeur est de <em>1</em> si la valeur du premier sous-paquet est plus petite que la valeur de leur second sous-paquet ; sinon leur valeur est de <em>0</em>. Ces paquets ont toujours exactement deux sous-paquets.</li>
+<li>Les paquets avec un identifiant de type <code>7</code> sont des paquets <em>égal-à</em> - leur valeur est de <em>1</em> si la valeur du premier sous-paquet est égale à la valeur de leur second sous-paquet ; sinon leur valeur est de <em>0</em>. Ces paquets ont toujours exactement deux sous-paquets.</li>
+</ul>
+<p>En utilisant ces règles, vous pouvez maintenant trouver la valeur du paquet le plus extérieur de votre transmission BITS.</p>
+<p>par exemple :</p>
+<ul>
+<li><code>C200B40A82</code> trouve la somme de <code>1</code> et <code>2</code>, résultant en la valeur <em><code>3</code></em>.</li>
+<li><code>04005AC33890</code> trouve le produit de <code>6</code> et <code>9</code>, résultant en la valeur <em><code>54</code></em>.</li>
+<li><code>880086C3E88112</code> trouve le minimum de <code>7</code>, <code>8</code> et <code>9</code>, résultant en la valeur <em><code>7</code></em>.</li>
+<li><code>CE00C43D881120</code> trouve le maximum de <code>7</code>, <code>8</code> et <code>9</code>, résultant en la valeur <em><code>9</code></em>.</li>
+<li><code>D8005AC2A8F0</code> donne <em><code>1</code></em>, puisque <code>5</code> est inférieur à <code>15</code>.</li>
+<li><code>F600BC2D8F</code> donne <em><code>0</code></em>, puisque <code>5</code> n'est pas supérieur à <code>15</code>.</li>
+<li><code>9C005AC2F8F0</code> donne <em><code>0</code></em>, puisque <code>5</code> n'est pas égal à <code>15</code>.</li>
+<li><code>9C0141080250320F1802104A08</code> donne <em><code>1</code></em> , puisque <code>1</code> + <code>3</code> = <code>2</code> * <code>2</code>.</li>
+</ul>
+<p><em>Qu'obtenez-vous si vous évaluez l'expression représentée par votre transmission BITS encodée en hexadécimal ?</em></p>
+</section> 
+</body> 
+</html> 
