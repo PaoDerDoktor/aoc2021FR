@@ -1,0 +1,159 @@
+<!DOCTYPE html> 
+<html lang='fr'> 
+<head> 
+<link rel='stylesheet' type='text/css' href='../../../../skins/sc2020-translation.css'> 
+<meta name='day' content="day18"> 
+</head> 
+<body> 
+<section id='translation_part_one'> 
+<h1 id="jour-18-poisson-escargot----">--- Jour 18 : Poisson-escargot ---</h1>
+<p>Vous descendez dans la fosse océanique et rencontrez des poissons-escargots. Ils disent avoir vu les clefs du traîneau ! Ils vous diront même où les clefs s'en sont allées si vous aidez un des plus petits poisson-escargots pour ses <em>devoirs de math</em>.</p>
+<p>Les nombres poisson-escargot ne sont pas comme les nombres normaux. À la place, tous les nombres poisson-escargot sont des <em>paires</em> - des listes ordonnées de deux éléments. Chaque élément d'une paire peut être soit un nombre normal, soit une autre paire.</p>
+<p>Les paires sont écrites sous le format <code>[x, y]</code>, où <code>x</code> et <code>y</code> sont les éléments de la paire. Voici quelques exemples de nombres poisson-escargot, un nombre par ligne :</p>
+<pre class="snailfish"><code>[1,2]
+[[1,2],3]
+[9,[8,7]]
+[[1,9],[8,5]]
+[[[[1,2],[3,4]],[[5,6],[7,8]]],9]
+[[[9,[3,8]],[[0,9],6]],[[[3,7],[4,9]],3]]
+[[[[1,3],[5,3]],[[1,3],[8,7]]],[[[4,9],[6,9]],[[8,2],[7,3]]]]</code></pre>
+<p>Le devoir du poisson-escargot porte sur <em>l'addition</em>. Pour additionner deux nombres poisson-escargot, formez une paire avec l'opérateur de droite et l'opérateur de gauche. Par exemple, <code>[1, 2]</code> + <code>[[3, 4], 5]</code> devient <code>[[1,2],[[3,4],5]]</code>.</p>
+<p>Il n'y a qu'un seul problème : <em>les nombres poisson-escargot doivent toujours être réduits</em>, et le processus d'addition de deux nombres peut donner un nombre ayant besoin d'être réduit.</p>
+<p>Pour <em>réduire un nombre poisson-escargot</em>, vous devez effectuer la première action de cette liste s'appliquant au nombre traité, et ce autant que nécessaire :</p>
+<ul>
+<li>Si une ou plusieurs paires sont <em>nichées à l'intérieur de quatre autres paires</em>, la plus à gauche de ces paires nichées <em>explose</em>.</li>
+<li>Si un ou plusieurs nombres normaux sont <em>supérieurs ou égaux à 10</em>, le plus à gauche de ces nombre normaux <em>se sépare</em>.</li>
+</ul>
+<p>Une fois que plus aucune action ne s'applique au nombre traité, le nombre poisson-escargot est réduit.</p>
+<p>Pendant la réduction, une seule action s'applique à la fois, après quoi le processus retourne au début de la liste des actions. Par exemple, si une <em>séparation</em> produit une paire rencontrant les critères d'<em>explosion</em>, cette paire <em>explose</em> avant qu'une autre <em>séparation</em> ne se produise.</p>
+<p>Pour <em>exploser</em> une paire, la valeur gauche de la paire est ajoutée au premier nombre normal directement à gauche de la paire explosant (s'il y en a un), et la valeur droite de la paire est ajoutée au premier nombre normal directement à droite de la paire explosant (s'il y en a un). Les paires explosant seront toujours composées de deux nombre normaux. Ensuite, l'entièreté de la paire explosant est remplacée par le nombre normal <code>0</code>.</p>
+<p>Voici quelques exemple d'une seule explosion :</p>
+<ul>
+<li><code>[[[[<em>[9,8]</em>,1],2],3],4]</code> devient <code>[[[[<em>0,9</em>],2],3],4]</code> (le <code>9</code> n'a pas de nombre normal à sa gauche, il n'est donc ajouté à aucun nombre normal).</li>
+<li><code>[7,[6,[5,[4,<em>[3,2]</em>]]]]&gt;</code> devient <code>[7,[6,[5,[<em>7,0</em>]]]]</code> (le <code>2</code> n'a pas de nombre normal à sa droite, il n'est donc ajouté à aucun nombre normal).</li>
+<li><code>[[6,[5,[4,<em>[3,2]</em>]]],1]</code> devient <code>[[6,[5,[<em>7,0</em>]]],<em>3</em>]</code>.</li>
+<li><code>[[3,[2,[1,<em>[7,3]</em>]]],[6,[5,[4,[3,2]]]]]</code> devient <code>[[3,[2,[<em>8,0</em>]]],[<em>9</em>,[5,[4,[3,2]]]]]</code> (la paire <code>[3,2]</code> n'est pas affectée puisque la paire <code>[7,3]</code> est plus à gauche ; <code>[3,2]</code> exploserait à la prochaine action).</li>
+<li><code>[[3,[2,[8,0]]],[9,[5,[4,<em>[3,2]</em>]]]]</code> devient <code>[[3,[2,[8,0]]],[9,[5,[<em>7,0</em>]]]]</code>.</li>
+</ul>
+<p>Pour <em>séparer</em> un nombre normal, remplacez le par une paire : l'élément de gauche de cette paire est le nombre divisé par deux et arrondi <em>à l'entier inférieur</em> et l'élément de droite de cette paire est le nombre divisé par deux et arrondi <em>à l'entier supérieur</em>. Par exemple, <code>10</code> devient <code>[5,5]</code>, <code>11</code> devient <code>[5,6]</code>, <code>12</code> devient <code>[6,6]</code> et ainsi de suite.</p>
+<p>Voici le processus requis pour trouver le résultat de la réduction de <code>[[[[4,3],4],4],[7,[[8,4],9]]]</code> + <code>[1,1]</code> :</p>
+<pre><code>after addition: [[[[<em>[4,3]</em>,4],4],[7,[[8,4],9]]],[1,1]]
+Après une explosion:  [[[[0,7],4],[7,[<em>[8,4]</em>,9]]],[1,1]]
+Après une explosion:  [[[[0,7],4],[<em>15</em>,[0,13]]],[1,1]]
+Après une séparation: [[[[0,7],4],[[7,8],[0,<em>13</em>]]],[1,1]]
+Après une séparation: [[[[0,7],4],[[7,8],[0,<em>[6,7]</em>]]],[1,1]]
+Après une explosion:  [[[[0,7],4],[[7,8],[6,0]]],[8,1]]</code></pre>
+<p>Une fois que plus aucune action de réduction ne s'applique, le nombre poisson-escargot restant est le résultat de l'addition : <code>[[[[0,7],4],[[7,8],[6,0]]],[8,1]]</code>.</p>
+<p>Le devoir de math demande d'additionner une <em>liste de nombres poisson-escargot</em> (l'entrée de votre puzzle). Les nombres poisson-escargot sont chacun notés sur une ligne différente. Ajoutez le premier nombre poisson-escargot au deuxième, puis ajoutez ce résultat au troisième, puis ajoutez ce nouveau résultat au quatrième, et ainsi de suite jusqu'à ce que chaque nombre de la list ait été utilisé une fois.</p>
+<p>Par exemple, la somme finale de la liste suivante est <code>[[[[1,1],[2,2]],[3,3]],[4,4]]</code> :</p>
+<pre class="snailfish"><code>[1,1]
+[2,2]
+[3,3]
+[4,4]</code></pre>
+<p>La somme finale de la liste suivante est <code>[[[[3,0],[5,3]],[4,4]],[5,5]]</code> :</p>
+<pre class="snailfish"><code>[1,1]
+[2,2]
+[3,3]
+[4,4]
+[5,5]</code></pre>
+<p>La somme finale de la liste suivante est <code>[[[[5,0],[7,4]],[5,5]],[6,6]]</code> :</p>
+<pre class="snailfish"><code>[1,1]
+[2,2]
+[3,3]
+[4,4]
+[5,5]
+[6,6]</code></pre>
+<p>Voici un exemple légèrement plus grand L</p>
+<pre class="snailfish"><code>[[[0,[4,5]],[0,0]],[[[4,5],[2,6]],[9,5]]]
+[7,[[[3,7],[4,3]],[[6,3],[8,8]]]]
+[[2,[[0,8],[3,4]]],[[[6,7],1],[7,[1,6]]]]
+[[[[2,4],7],[6,[0,5]]],[[[6,8],[2,8]],[[2,1],[4,5]]]]
+[7,[5,[[3,8],[1,4]]]]
+[[2,[2,2]],[8,[8,1]]]
+[2,9]
+[1,[[[9,3],9],[[9,0],[0,7]]]]
+[[[5,[7,4]],7],1]
+[[[[4,2],2],6],[8,7]]</code></pre>
+<p>Sa somme finale <code>[[[[8,7],[7,7]],[[8,6],[7,7]]],[[[0,7],[6,6]],[8,7]]]</code> est trouvée après avoir additionné tous ses nombres poisson-escargot :</p>
+<pre class="snailfishaddition"><code>  [[[0,[4,5]],[0,0]],[[[4,5],[2,6]],[9,5]]]
++ [7,[[[3,7],[4,3]],[[6,3],[8,8]]]]
+= [[[[4,0],[5,4]],[[7,7],[6,0]]],[[8,[7,7]],[[7,9],[5,0]]]]
+
+  [[[[4,0],[5,4]],[[7,7],[6,0]]],[[8,[7,7]],[[7,9],[5,0]]]]
++ [[2,[[0,8],[3,4]]],[[[6,7],1],[7,[1,6]]]]
+= [[[[6,7],[6,7]],[[7,7],[0,7]]],[[[8,7],[7,7]],[[8,8],[8,0]]]]
+
+  [[[[6,7],[6,7]],[[7,7],[0,7]]],[[[8,7],[7,7]],[[8,8],[8,0]]]]
++ [[[[2,4],7],[6,[0,5]]],[[[6,8],[2,8]],[[2,1],[4,5]]]]
+= [[[[7,0],[7,7]],[[7,7],[7,8]]],[[[7,7],[8,8]],[[7,7],[8,7]]]]
+
+  [[[[7,0],[7,7]],[[7,7],[7,8]]],[[[7,7],[8,8]],[[7,7],[8,7]]]]
++ [7,[5,[[3,8],[1,4]]]]
+= [[[[7,7],[7,8]],[[9,5],[8,7]]],[[[6,8],[0,8]],[[9,9],[9,0]]]]
+
+  [[[[7,7],[7,8]],[[9,5],[8,7]]],[[[6,8],[0,8]],[[9,9],[9,0]]]]
++ [[2,[2,2]],[8,[8,1]]]
+= [[[[6,6],[6,6]],[[6,0],[6,7]]],[[[7,7],[8,9]],[8,[8,1]]]]
+
+  [[[[6,6],[6,6]],[[6,0],[6,7]]],[[[7,7],[8,9]],[8,[8,1]]]]
++ [2,9]
+= [[[[6,6],[7,7]],[[0,7],[7,7]]],[[[5,5],[5,6]],9]]
+
+  [[[[6,6],[7,7]],[[0,7],[7,7]]],[[[5,5],[5,6]],9]]
++ [1,[[[9,3],9],[[9,0],[0,7]]]]
+= [[[[7,8],[6,7]],[[6,8],[0,8]]],[[[7,7],[5,0]],[[5,5],[5,6]]]]
+
+  [[[[7,8],[6,7]],[[6,8],[0,8]]],[[[7,7],[5,0]],[[5,5],[5,6]]]]
++ [[[5,[7,4]],7],1]
+= [[[[7,7],[7,7]],[[8,7],[8,7]]],[[[7,0],[7,7]],9]]
+
+  [[[[7,7],[7,7]],[[8,7],[8,7]]],[[[7,0],[7,7]],9]]
++ [[[[4,2],2],6],[8,7]]
+= [[[[8,7],[7,7]],[[8,6],[7,7]]],[[[0,7],[6,6]],[8,7]]]</code></pre>
+<p>Pour vérifier si la réponse finale est vraie, le professeur poisson-escargot vérifie seulement la <em>magnitude</em> de la somme finale. La magnitude d'une paire est égale à 3 fois sa valeur de gauche ajouté à 2 fois sa valeur de droite. La magnitude d'un nombre normal est simplement la valeur de ce nombre.</p>
+<p>Par exemple, la magnitude de <code>[9,1]</code> est <code>3<em>9 + 2</em>1 = <em>29</em></code>. Le calcul de la magnitude est récursif : la magnitude de <code>[[9,1],[1,9]]</code> est <code>3*29 + 2*21 = <em>129</em></code>.</p>
+<p>Voici quelques exemple supplémentaires de magnitudes :</p>
+<ul>
+<li><code>[[1,2],[[3,4],5]]</code> devient <em><code>143</code></em></li>
+<li><code>[[[[0,7],4],[[7,8],[6,0]]],[8,1]]</code> devient <em><code>1384</code></em>.</li>
+<li><code>[[[[1,1],[2,2]],[3,3]],[4,4]]</code> devient <em><code>445</code></em>.</li>
+<li><code>[[[[3,0],[5,3]],[4,4]],[5,5]]</code> devient <em><code>791</code></em>.</li>
+<li><code>[[[[5,0],[7,4]],[5,5]],[6,6]]</code> devient <em><code>1137</code></em>.</li>
+<li><code>[[[[8,7],[7,7]],[[8,6],[7,7]]],[[[0,7],[6,6]],[8,7]]]</code> devient <em><code>3488</code></em>.</li>
+</ul>
+<p>Ainsi, étant donné l'énoncé de devoir suivant :</p>
+<pre class="snailfish"><code>[[[0,[5,8]],[[1,7],[9,6]]],[[4,[1,2]],[[1,4],2]]]
+[[[5,[2,8]],4],[5,[[9,9],0]]]
+[6,[[[6,2],[5,6]],[[7,6],[4,7]]]]
+[[[6,[0,7]],[0,9]],[4,[9,[9,0]]]]
+[[[7,[6,4]],[3,[1,3]]],[[[5,5],1],9]]
+[[6,[[7,3],[3,2]]],[[[3,8],[5,7]],4]]
+[[[[5,4],[7,7]],8],[[8,3],8]]
+[[9,3],[[9,9],[6,[4,9]]]]
+[[2,[[7,7],7]],[[5,8],[[9,3],[0,2]]]]
+[[[[5,2],5],[8,[3,7]]],[[5,[7,5]],[4,4]]]</code></pre>
+<p>La somme finale est :</p>
+<pre class="snailfish"><code>[[[[6,6],[7,6]],[[7,7],[7,0]]],[[[7,7],[7,7]],[[7,8],[9,9]]]]</code></pre>
+<p>Additionnez tous les nombres poisson-escargot du devoir dans l'ordre dans lequel ils apparaissent. <em>Quelle est la magnitude de la somme finale ?</em></p>
+</section> 
+<section id='translation_part_two'> 
+<h1 id="partie-deux---">--- Partie Deux --</h1>
+<p>Vous remarquez une seconde question au dos de l'énoncé du devoir :</p>
+<p>Quel est la plus grande magnitude obtenable en additionnant seulement deux des des nombres poisson-escargot ?</p>
+<p>Notez que l'addition poisson-escargot n'est pas <a href="https://fr.wikipedia.org/wiki/Loi_commutative">commutative</a> - c'est-à-dire que <code>x + y</code> et <code>y + x</code> peuvent produire des résultats différents.</p>
+<p>Considérez encore une fois l'énoncé suivant :</p>
+<pre class="snailfish"><code>[[[0,[5,8]],[[1,7],[9,6]]],[[4,[1,2]],[[1,4],2]]]
+[[[5,[2,8]],4],[5,[[9,9],0]]]
+[6,[[[6,2],[5,6]],[[7,6],[4,7]]]]
+[[[6,[0,7]],[0,9]],[4,[9,[9,0]]]]
+[[[7,[6,4]],[3,[1,3]]],[[[5,5],1],9]]
+[[6,[[7,3],[3,2]]],[[[3,8],[5,7]],4]]
+[[[[5,4],[7,7]],8],[[8,3],8]]
+[[9,3],[[9,9],[6,[4,9]]]]
+[[2,[[7,7],7]],[[5,8],[[9,3],[0,2]]]]
+[[[[5,2],5],[8,[3,7]]],[[5,[7,5]],[4,4]]]</code></pre>
+<p>La plus grande magnitude de la somme de n'importe quelle paire de deux nombres poisson-escargot dans cette liste est <em><code>3993</code></em>. C'est la magnitude de <code>[[2,[[7,7],7]],[[5,8],[[9,3],[0,2]]]]</code> + <code>[[[0,[5,8]],[[1,7],[9,6]]],[[4,[1,2]],[[1,4],2]]]</code>, qui se réduit en <code>[[[[7,8],[6,6]],[[6,0],[7,7]]],[[[7,8],[8,8]],[[7,9],[0,6]]]]</code>.</p>
+<p><em>Quelle est la plus grande magnitude d'une somme de deux nombres poisson-escargots provenant de l'énoncé du devoir ?</em></p>
+</section> 
+</body> 
+</html> 
