@@ -1,0 +1,49 @@
+<!DOCTYPE html> 
+<html lang='fr'> 
+<head> 
+<link rel='stylesheet' type='text/css' href='../../../../skins/sc2020-translation.css'> 
+<meta name='day' content="day21"> 
+</head> 
+<body> 
+<section id='translation_part_one'> 
+<h1 id="jour-21-dé-de-dirac----">--- Jour 21 : Dé de Dirac ---</h1>
+<p>Il n'y a pas grand chose à faire pendant que vous descendez lentement vers le fond de l'océan. L'ordinateur du sous-marin vous défie à une partie de <em>Dé de Dirac</em>.</p>
+<p>Le jeu consiste en un seul <a href="https://fr.wikipedia.org/wiki/D%C3%A9">dé</a>, deux <a href="https://fr.wikipedia.org/wiki/Pion#Jeux">pions</a> et un plateau de jeu possédant une piste circulaire de dix emplacements marqués de <code>1</code> à <code>10</code> dans le sens horaire. L'<em>emplacement de départ</em> de chacun des joueurs est tiré au hasard (l'entrée de votre puzzle). Le joueur 1 commence.</p>
+<p>Les joueurs se déplacent chacun leur tour. Pendant le tour d'un joueur, celui-ci lance le un dé <em>trois fois de suite</em> et additionne les résultats ensemble. Ensuite, le joueur bouge son pion autant de fois qu'indiqué par la somme des résultats du dé <em>vers l'avant</em> sur la piste (c'est-à-dire en suivant le sens horaire sur les emplacements dans l'ordre croissant, retournant à <code>1</code> après <code>10</code>). Donc, si un joueur est sur l'emplacement <code>7</code> et tire <code>2</code>, <code>2</code> et <code>1</code> au dé, il avancerait 5 fois, passant par les emplacements <code>8</code>, <code>9</code>, <code>10</code>, <code>1</code> et s'arrêtant finalement sur <code>2</code>.</p>
+<p>Après le mouvement d'un joueur, le <em>score</em> de ce joueur est augmenté par la valeur de la case sur laquelle son pion s'est arrêté. Les scores des joueurs commencent à <code>0</code>. Ainsi, si le premier joueur démarre sur l'emplacement <code>7</code> et fait un total de <code>5</code> au dé s'arrêtant donc sur la case <code>2</code>, il ajoute <code>2</code> à son score (pour un score total de <code>2</code>). Le jeu s'arrête immédiatement comme une victoire pour le premier joueur qui atteint <em>au moins <code>1000</code></em>.</p>
+<p>Puisque la première partie est une partie d'entraînement, le sous-marin ouvre un compartiment étiqueté <em>dé déterministe</em> duquel un dé à 100 faces tombe. ce dé donne toujours <code>1</code> d'abord, puis <code>2</code>, puis <code>3</code>, et ainsi de suite jusqu'à <code>100</code>, après quoi il recommence à <code>1</code>. Jouez en l'utilisant.</p>
+<p>Par exemple, étant données ces positions de départ :</p>
+<pre class="startpositions"><code>Player 1 starting position: 4
+Player 2 starting position: 8</code></pre>
+<p>Voici comment se passerait la partie :</p>
+<ul>
+<li>Le joueur 1 obtient <code>1</code>+<code>2</code>+<code>3</code> au dé et avance à l'emplacement <code>10</code> pour un score total de<code>10</code>.</li>
+<li>Le joueur 2 obtient <code>4</code>+<code>5</code>+<code>6</code> au dé et avance à l'emplacement <code>3</code> pour un score total de<code>3</code>.</li>
+<li>Le joueur 1 obtient <code>7</code>+<code>8</code>+<code>9</code> au dé et avance à l'emplacement <code>4</code> pour un score total de<code>14</code>.</li>
+<li>Le joueur 2 obtient <code>10</code>+<code>11</code>+<code>12</code> au dé et avance à l'emplacement <code>6</code> pour un score total de <code>9</code>.</li>
+<li>Le joueur 1 obtient <code>13</code>+<code>14</code>+<code>15</code> au dé et avance à l'emplacement <code>6</code> pour un score total de <code>20</code>.</li>
+<li>Le joueur 2 obtient <code>16</code>+<code>17</code>+<code>18</code> au dé et avance à l'emplacement <code>7</code> pour un score total de <code>16</code>.</li>
+<li>Le joueur 1 obtient <code>19</code>+<code>20</code>+<code>21</code> au dé et avance à l'emplacement <code>6</code> pour un score total de <code>26</code>.</li>
+<li>Le joueur 2 obtient <code>22</code>+<code>23</code>+<code>24</code> au dé et avance à l'emplacement <code>6</code> pour un score total de <code>22</code>.</li>
+</ul>
+<p>... Puis après de nombreux de tours...</p>
+<ul>
+<li>Le joueur 2 obtient <code>82</code>+<code>83</code>+<code>84</code> et avance à l'emplacement <code>6</code> pour un score total de <code>742</code>.</li>
+<li>Le joueur 1 obtient <code>85</code>+<code>86</code>+<code>87</code> et avance à l'emplacement <code>4</code> pour un score total de <code>990</code>.</li>
+<li>Le joueur 2 obtient <code>88</code>+<code>89</code>+<code>90</code> et avance à l'emplacement <code>3</code> pour un score total de <code>745</code>.</li>
+<li>Le joueur 1 obtient <code>91</code>+<code>92</code>+<code>93</code> et avance à l'emplacement <code>10</code> pour un score total de <code>1000</code>.</li>
+</ul>
+<p>Puisque le joueur 1 a au moins <code>1000</code> points, le joueur 1 gagne et la partie se termine. À ce moment là, le joueur perdant avait <code>745</code> points et le dé à été lancé un total de <code>993</code> fois ; <code>745 * 993 = <em>739785</em></code>.</p>
+<p>Jouez la partie d'entraînement avec le dé déterministe à 100 faces. Au moment où l'un des joueurs gagne, <em>qu'obtenez-vous si vous multipliez le score du joueur perdant par le nombre de fois où le dé à été lancé durant la partie ?</em></p>
+</section> 
+<section id='translation_part_two'> 
+<h1 id="partie-deux----">--- Partie Deux ---</h1>
+<p>Maintenant que vous êtes échauffé, il est temps de jouer la vraie partie.</p>
+<p>Un deuxième compartiment s'ouvre, cette fois-ci nommé <em>dé de Dirac</em>. De lui tombe un étrange dé à trois faces.</p>
+<p>Alors que vous essayez ce dé, vous vous sentez un peu bizarre. Un manuel dans le compartiment vous informe qu'il s'agit d'un <em>dé quantique</em> : Lorsque vous le lancez, l'univers <em>se sépare en de multiples copies</em>, une pour chaque résultat possible. Dans votre cas, lancer le dé sépare toujours l'univers en <em>trois copies</em> : une où le lancer vaut <code>1</code>, une où il vaut <code>2</code> et une où il vaut <code>3</code>.</p>
+<p>La partie est jouée de la même manière qu'avant, mais pour éviter de perdre le contrôle de la situation, la partie se termine maintenant quand un joueur atteint au moins <em><code>21</code></em>.</p>
+<p>En utilisant les même positions de départ que dans l'exemple ci-dessus, le joueur 1 gagne dans <em><code>444356092776315</code></em> univers, alors que le joueur 2 ne gagne que dans <code>341960390180808</code> univers.</p>
+<p>En utilisant vos propres positions de départ, déterminez toutes les issues possibles. <em>Trouvez quel joueur gagne dans le plus d'univers. Dans combien d'univers gagne-t-il ?</em></p>
+</section> 
+</body> 
+</html> 
