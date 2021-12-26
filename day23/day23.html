@@ -1,0 +1,300 @@
+<!DOCTYPE html> 
+<html lang='fr'> 
+<head> 
+<link rel='stylesheet' type='text/css' href='../../../../skins/sc2020-translation.css'> 
+<meta name='day' content="day23"> 
+</head> 
+<body> 
+<section id='translation_part_one'> 
+<h1 id="jour-23-amphipode----">--- Jour 23 : Amphipode ---</h1>
+<p>Un groupe d'<a href="https://fr.wikipedia.org/wiki/Amphipoda">amphipodes</a> remarque votre superbe sous-marin et vos font signe. "avec une coquille si impressionnante", dit l'un d'eux, "vous pouvez sûrement nous aider sur une question qui fait s'arracher la carapace à nos plus grands scientifiques".</p>
+<p>Ils vous expliquent ensuite qu'un groupe d'amphipodes timides et têtus vivent dans une tanière proche. Quatre types d'amphipodes vivent là-bas : <em>Ambrés</em> (<code>A</code>), <em>Bronze</em> (<code>B</code>), <em>Cuivre</em> (<code>C</code>) et <em>Désert</em> (<code>D</code>). Ils vivent dans une tanière consistant en un <em>couloir</em> et quatre <em>pièces latérales</em>. Initialement, ces pièces latérales sont pleines d'amphipodes, et le couloir est vide.</p>
+<p>Ils vous donnent un <em>diagramme de la situation</em> (l'entrée de votre puzzle), incluant les emplacements de chaque amphipode (<code>A</code>, <code>B</code>, <code>C</code> et <code>D</code>, chacun occupant un espace qui s'ils n'étaient pas là serait vide), des murs (<code>#</code>) et des espaces vides (<code>.</code>).</p>
+<p>Par exemple :</p>
+<pre class="amphidia"><code>#############
+#...........#
+###B#C#B#D###
+  #A#D#C#A#
+  #########</code></pre>
+<p>Les amphipodes voudraient une méthode pour organiser chaque amphipode dans une pièce latérale pour que chaque pièce latérale contienne un type d'amphipode et que les types soient rangés de <code>A</code> à <code>D</code> de gauche à droite, comme ceci :</p>
+<pre class="amphidia"><code>#############
+#...........#
+###A#B#C#D###
+  #A#B#C#D#
+  #########</code></pre>
+<p>Les amphipodes peuvent se déplacer en haut, en bas, à gauche, à droite tant qu'ils bougent vers un espace inoccupé. Chaque type d'amphipode requiert un taux d'énergie différent pour bouger d'un emplacement : <code>1</code> unité pour les Ambrés, <code>10</code> pour les Bronze, <code>100</code> pour les Cuivre et <code>10000</code> pour les déserts. Les amphipodes voudraient trouver un moyen d'organiser les amphipodes avec <em>le moins d'énergie possible</em>.</p>
+<p>Cependant, puisqu'ils sont timides et têtus, les amphipodes ont des règles supplémentaires :</p>
+<ul>
+<li>Les amphipodes ne <em>s'arrêteront jamais dans l'espace directement au-dessus d'une pièce</em>. Ils peuvent se déplacer dans ces espaces tant qu'ils continuent immédiatement à se déplacer (pour être exact, ceci fait référence aux quatre espaces dans le couloir qui sont exactement au-dessus des amphipodes à leur positions de départ).</li>
+<li>Les amphipodes ne <em>se déplaceront jamais depuis le couloir vers une pièce</em> à moins que celle-ci ne soit leur pièce de destination <em>et</em> que cette pièce ne contiennent pas d'amphipode qui n'ont pas cette pièce comme leur pièce de destination. Si un amphipode ne démarre pas dans sa pièce de destination, il peut rester dans cette pièce jusqu'à ce qu'il la quitte (par exemple, un amphipode Ambré ne se déplacera pas depuis le couloir vers une des trois pièces de droite, et ne se déplacera dans la pièce la plus à gauche que si elle est vide ou qu'elle ne contient que d'autres amphipodes ambrés).</li>
+<li>Une fois qu'un amphipode s'est arrête dans le couloir, <em>il reste à son emplacement jusqu'à ce qu'il puisse se déplacer vers une pièce</em> (c'est-à-dire qu'une fois qu'un amphipode commence à se déplace, tous les autres amphipodes situés dans le couloir à ce moment-là sont bloqués et ne se déplaceront plus pour autre chose que se ranger dans leur pièce.)</li>
+</ul>
+<p>Dans l'exemple ci-dessus, les amphipodes peuvent être organisés en un minimum de <em><code>12521</code></em> unités d'énergie. Une façon de faire est montrée ci-dessous.</p>
+<p>Configuration de départ :</p>
+<pre class="amphidia"><code>#############
+#...........#
+###B#C#B#D###
+  #A#D#C#A#
+  #########</code></pre>
+<p>Un amphipode Bronze se déplace vers le couloir, faisant 4 pas et utilisant <code>40</code> unités d'énergie :</p>
+<pre class="amphidia"><code>#############
+#...B.......#
+###B#C#.#D###
+  #A#D#C#A#
+  #########</code></pre>
+<p>Le seul amphipode Cuivre qui n'est pas dans sa chambre latérale se déplace vers celle-ci, faisant 4 pas et utilisant <code>400</code> unités d'énergie :</p>
+<pre class="amphidia"><code>#############
+#...B.......#
+###B#.#C#D###
+  #A#D#C#A#
+  #########</code></pre>
+<p>Un amphipode Désert se déplace, faisant 3 pas et utilisant <code>3000</code> unités d'énergie, puis l'amphipode Bronze prends sa place, faisant 3 pas et utilisant <code>30</code> unités d'énergie :</p>
+<pre class="amphidia"><code>#############
+#.....D.....#
+###B#.#C#D###
+  #A#B#C#A#
+  #########</code></pre>
+<p>L'amphipode Bronze le plus à gauche se déplace dans sa chambre en utilisant <code>40</code> unités d'énergie :</p>
+<pre class="amphidia"><code>#############
+#.....D.....#
+###.#B#C#D###
+  #A#B#C#A#
+  #########</code></pre>
+<p>Les deux amphipodes dans la pièce la plus à droite se déplacent vers le couloir, utilisant <code>2003</code> unités d'énergie au total :</p>
+<pre class="amphidia"><code>#############
+#.....D.D.A.#
+###.#B#C#.###
+  #A#B#C#.#
+  #########</code></pre>
+<p>Les deux amphipodes Désert se déplacent dans la pièce la plus à droite en utilisant <code>7000</code> unités d'énergie :</p>
+<pre class="amphidia"><code>#############
+#.........A.#
+###.#B#C#D###
+  #A#B#C#D#
+  #########</code></pre>
+<p>Enfin, le dernier amphipode Ambré se déplace dans sa pièce en utilisant <code>8</code> unités d'énergie :</p>
+<pre class="amphidia"><code>#############
+#...........#
+###A#B#C#D###
+  #A#B#C#D#
+  #########</code></pre>
+<p><em>Quelle est l'énergie minimale requise pour organiser les amphipodes ?</em></p>
+</section> 
+<section id='translation_part_two'> 
+<h1 id="partie-deux----">--- Partie Deux ---</h1>
+<p>Alors que vous vous préparez à donner votre solution aux amphipodes, vous remarquez que le diagramme qu'ils vous ont donné est en fait plié. Quand vous le dépliez, vous découvrez une partie supplémentaire du diagramme.</p>
+<p>Entre la première et la deuxième ligne de text contenant les positions de départ des amphipodes, insérez les lignes suivantes :</p>
+<pre class="amphidiapart"><code>  #D#C#B#A#
+  #D#B#A#C#</code></pre>
+<p>Ainsi, l'exemple ci-dessus devient :</p>
+<pre><code>#############
+#...........#
+###B#C#B#D###
+  <em>#D#C#B#A#</em>
+  <em>#D#B#A#C#</em>
+  #A#D#C#A#
+  #########</code></pre>
+<p>Les amphipodes veulent toujours être organisés dans les pièces comme avant :</p>
+<pre class="amphidia"><code>#############
+#...........#
+###A#B#C#D###
+  #A#B#C#D#
+  #A#B#C#D#
+  #A#B#C#D#
+  #########</code></pre>
+<p>Dans cet exemple mis à jour, l'énergie minimale requise pour organiser les amphipodes est de <em><code>44169</code></em> :</p>
+<pre class="amphidiamul"><code>#############
+#...........#
+###B#C#B#D###
+  #D#C#B#A#
+  #D#B#A#C#
+  #A#D#C#A#
+  #########
+
+#############
+#..........D#
+###B#C#B#.###
+  #D#C#B#A#
+  #D#B#A#C#
+  #A#D#C#A#
+  #########
+
+#############
+#A.........D#
+###B#C#B#.###
+  #D#C#B#.#
+  #D#B#A#C#
+  #A#D#C#A#
+  #########
+
+#############
+#A........BD#
+###B#C#.#.###
+  #D#C#B#.#
+  #D#B#A#C#
+  #A#D#C#A#
+  #########
+
+#############
+#A......B.BD#
+###B#C#.#.###
+  #D#C#.#.#
+  #D#B#A#C#
+  #A#D#C#A#
+  #########
+
+#############
+#AA.....B.BD#
+###B#C#.#.###
+  #D#C#.#.#
+  #D#B#.#C#
+  #A#D#C#A#
+  #########
+
+#############
+#AA.....B.BD#
+###B#.#.#.###
+  #D#C#.#.#
+  #D#B#C#C#
+  #A#D#C#A#
+  #########
+
+#############
+#AA.....B.BD#
+###B#.#.#.###
+  #D#.#C#.#
+  #D#B#C#C#
+  #A#D#C#A#
+  #########
+
+#############
+#AA...B.B.BD#
+###B#.#.#.###
+  #D#.#C#.#
+  #D#.#C#C#
+  #A#D#C#A#
+  #########
+
+#############
+#AA.D.B.B.BD#
+###B#.#.#.###
+  #D#.#C#.#
+  #D#.#C#C#
+  #A#.#C#A#
+  #########
+
+#############
+#AA.D...B.BD#
+###B#.#.#.###
+  #D#.#C#.#
+  #D#.#C#C#
+  #A#B#C#A#
+  #########
+
+#############
+#AA.D.....BD#
+###B#.#.#.###
+  #D#.#C#.#
+  #D#B#C#C#
+  #A#B#C#A#
+  #########
+
+#############
+#AA.D......D#
+###B#.#.#.###
+  #D#B#C#.#
+  #D#B#C#C#
+  #A#B#C#A#
+  #########
+
+#############
+#AA.D......D#
+###B#.#C#.###
+  #D#B#C#.#
+  #D#B#C#.#
+  #A#B#C#A#
+  #########
+
+#############
+#AA.D.....AD#
+###B#.#C#.###
+  #D#B#C#.#
+  #D#B#C#.#
+  #A#B#C#.#
+  #########
+
+#############
+#AA.......AD#
+###B#.#C#.###
+  #D#B#C#.#
+  #D#B#C#.#
+  #A#B#C#D#
+  #########
+
+#############
+#AA.......AD#
+###.#B#C#.###
+  #D#B#C#.#
+  #D#B#C#.#
+  #A#B#C#D#
+  #########
+
+#############
+#AA.......AD#
+###.#B#C#.###
+  #.#B#C#.#
+  #D#B#C#D#
+  #A#B#C#D#
+  #########
+
+#############
+#AA.D.....AD#
+###.#B#C#.###
+  #.#B#C#.#
+  #.#B#C#D#
+  #A#B#C#D#
+  #########
+
+#############
+#A..D.....AD#
+###.#B#C#.###
+  #.#B#C#.#
+  #A#B#C#D#
+  #A#B#C#D#
+  #########
+
+#############
+#...D.....AD#
+###.#B#C#.###
+  #A#B#C#.#
+  #A#B#C#D#
+  #A#B#C#D#
+  #########
+
+#############
+#.........AD#
+###.#B#C#.###
+  #A#B#C#D#
+  #A#B#C#D#
+  #A#B#C#D#
+  #########
+
+#############
+#..........D#
+###A#B#C#.###
+  #A#B#C#D#
+  #A#B#C#D#
+  #A#B#C#D#
+  #########
+
+#############
+#...........#
+###A#B#C#D###
+  #A#B#C#D#
+  #A#B#C#D#
+  #A#B#C#D#
+  #########</code></pre>
+<p>En utilisant la configuration initiale du diagramme complet, <em>quelle est l'énergie minimale requise pour organiser les amphipodes ?</em></p>
+</section> 
+</body> 
+</html> 

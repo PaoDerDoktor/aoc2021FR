@@ -1,0 +1,53 @@
+<!DOCTYPE html> 
+<html lang='fr'> 
+<head> 
+<link rel='stylesheet' type='text/css' href='../../../../skins/sc2020-translation.css'> 
+<meta name='day' content="day24"> 
+</head> 
+<body> 
+<section id='translation_part_one'> 
+<h1 id="jour-24-unité-arithmétique-et-logique----">--- Jour 24 : Unité Arithmétique et Logique ---</h1>
+<p>De la <a href="https://fr.wiktionary.org/wiki/magic_smoke#:~:text=Locution%20nominale&amp;text=(%C3%89lectronique)%20(Par%20plaisanterie),bon%20fonctionnement%20des%20composants%20%C3%A9lectroniques.">fumée magique</a> commence à fuir de l'<a href="https://fr.wikipedia.org/wiki/Unit%C3%A9_arithm%C3%A9tique_et_logique">unité arithmétique et logique</a> (en anglais <em>Arithmetic Logic Unit</em>, ALU). Sans la capacité d'exécuter des fonctions arithmétiques et logiques de base, votre sous-marin ne peut plus opérer ses lumières de Noël si cool !</p>
+<p>Il ne peut d'ailleurs pas non plus naviguer. Ni faire fonctionner le système à oxygène.</p>
+<p>Ne vous en faites pas, par contre - il vous reste <em>probablement</em> assez d'oxygène pour vous donner assez de temps pour construire une nouvelle ALU.</p>
+<p>L'ALU est une unité de calcul quadridimensionnelle : elle possède des variables entières <code>w</code>, <code>x</code>, <code>y</code> et <code>z</code>. Ces variables commencent toutes avec la valeur <code>0</code>. L'ALU supporte également <em>six instructions</em> :</p>
+<ul>
+<li><code>inp a</code> - Lit une valeur en entrée et l'écrit dans la variable <code>a</code>.</li>
+<li><code>add a b</code> - Ajoute la valeur de <code>a</code> à la valeur de <code>b</code>, puis stocke le résultat dans la variable <code>a</code>.</li>
+<li><code>mul a b</code> - Multiplie la valeur de <code>a</code> par la valeur de <code>b</code>, puis stocke le résultat dans la variable <code>a</code>.</li>
+<li><code>div a b</code> - Divise la valeur de <code>a</code> par la valeur de <code>b</code>, tronque le résultat pour obtenir un entier, puis stocke le résultat dans la variable <code>a</code> (ici, "tronquer" signifie arrondir la valeur vers zéro)</li>
+<li><code>mod a b</code> - Divise la valeur de <code>a</code> par la valeur de <code>b</code>, puis stocke le <em>reste</em> dans la variable <code>a</code> (ceci est également appelé <a href="https://fr.wikipedia.org/wiki/Modulo_(op%C3%A9ration)">modulo</a>).</li>
+<li><code>eql a b</code> - Si les valeurs de <code>a</code> et <code>b</code> sont égales, stocke la valeur <code>1</code> dans la variable <code>a</code>. Sinon, stocke la valeur <code>0</code> dans la variable <code>a</code>.</li>
+</ul>
+<p>Dans toutes ces instructions, <code>a</code> et <code>b</code> sont des exemples ; <code>a</code> sera toujours la variable dans laquelle le résultat d'une opération est stocké tandis que <code>b</code> peut être soit une variable soit un nombre. Les nombres peuvent être positifs ou négatifs, mais seront toujours des entiers.</p>
+<p>L'ALU n'a pas d'instruction de <em>saut</em> ; dans un programme d'ALU, toutes les instructions sont exécutées exactement une fois dans l'ordre de haut en bas. Le programme s'arrête après que la dernière instruction ait fini de s'exécuter.</p>
+<p>(Les programmeurs devraient faire très attention : essayer d'exécuter une opération <code>div</code> avec <code>b = 0</code> ou essayer d'exécuter une opération <code>mod</code> avec <code>a &lt; 0</code> ou <code>b &lt;= 0</code> ferra crash le programme et pourrait même endommager l'ALU. Ces opérations ne sont jamais volontairement exécutées dans un programme d'ALU sérieux.)</p>
+<p>Par exemple, voici un programme d'ALU qui prends en entrée un nombre, le met en négatif, et le stocke dans <code>x</code> :</p>
+<pre class="alu"><code>inp x
+mul x -1</code></pre>
+<p>Voici un programme d'ALU qui prends un nombre positif ou nul en entrée, le convertir en binaire, et stocke le bit le plus faible (1) dans <code>z</code>, le second bit le plus faible (2) dans <code>y</code>, le troisième bit le plus faible (4) dans <code>x</code>, et le quatrième bit le plus faible dans <code>w</code> :</p>
+<pre class="alu"><code>inp w
+add z w
+mod z 2
+div w 2
+add y w
+mod y 2
+div w 2
+add x w
+mod x 2
+div w 2
+mod w 2</code></pre>
+<p>Une fois que vous avez fini de construire une ALU de remplacement, vous pouvez l'installer dans le sous-marin, qui reprendra immédiatement sa tâche là où l'ALU précédente s'est interrompue : la validation du <em>numéro de modèle</em> du sous-marin. Pour ce faire, l'ALU exécutera le programme MOdel Number Automatic Detector (MONAD, le Détecteur Automatique de Numéro de MOdèle, l'entrée de votre puzzle).</p>
+<p>Les numéros de modèles des sous-marins sont toujours des <em>nombres de quatorze chiffres</em> ne contenant que des chiffres de <code>1</code> à <code>9</code>. Le nombre <code>0</code> <em>ne peut pas</em> apparaître dans le numéro de modèle.</p>
+<p>Quand MONAD vérifie un hypothétique nombre de quatorze chiffres, il utilise quatorze instructions <code>inp</code> séparées, attendant chacune <em>un seul chiffre</em> du numéro dans l'ordre du plus au moins significatif (Donc, pour vérifier le numéro de modèle <code>13579246899999</code>, vous donneriez <code>1</code> à la première instruction <code>inp</code>, <code>3</code> à la deuxième instruction <code>inp</code>, <code>5</code> à la troisième instruction <code>inp</code>, et ainsi de suite). Ceci signifie qu'en exécutant MONAD, chaque instruction d'entrée devrait être approvisionnée d'une seule valeur entière d'au moins <code>1</code> et d'au plus <code>9</code>.</p>
+<p>Ensuite, une fois que MONAD ait finit d'exécuter toutes ses instructions, il indiquera que le numéro de modèle était <em>valide</em> en laissant un <code>0</code> dans la variable <code>z</code>. Inversement, si le numéro de modèle était <em>invalide</em>, il laissera une valeur différente de <code>0</code> dans <code>z</code>.</p>
+<p>MONAD imposes de mystérieuses restrictions supplémentaires sur les numéros de modèles, et la légende dit que la dernière copie du manuel de documentation de MONAD a été mangée par un <a href="https://universdujapon.com/blogs/japon/tanuki">tanuki</a>. Vous allez devoir <em>trouver ce que fait MONAD</em> d'une autre façon.</p>
+<p>Pour activer autant de fonctionnalités du sous-marin que possible, trouvez le plus grand numéro de modèle valide qui ne contienne pas le chiffre <code>0</code>. <em>Quel est le plus grand numéro de modèle accepté par MONAD ?</em></p>
+</section> 
+<section id='translation_part_two'> 
+<h1 id="partie-deux----">--- Partie Deux ---</h1>
+<p>Alors que le sous-marin commence à démarrer des choses comme le <a href="https://fr.wikipedia.org/wiki/Turboencabulator">Retroencabulateur</a>, vous réalisez que vous n'avez peut-être pas besoin de toutes ces fonctionnalités, <span id="we&#39;re_all_humans">après tout</span>.</p>
+<p><em>Quel est le plus petit numéro de modèle accepté par MONAD ?</em></p>
+</section> 
+</body> 
+</html> 

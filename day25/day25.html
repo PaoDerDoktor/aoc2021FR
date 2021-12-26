@@ -1,0 +1,284 @@
+<!DOCTYPE html> 
+<html lang='fr'> 
+<head> 
+<link rel='stylesheet' type='text/css' href='../../../../skins/sc2020-translation.css'> 
+<meta name='day' content="day25"> 
+</head> 
+<body> 
+<section id='translation_part_one'> 
+<h1 id="jour-25-concombre-de-mer----">--- Jour 25 : Concombre de Mer ---</h1>
+<p>Vous y êtes : le fond de la fosse océanique, le dernier endroit où peuvent être les clefs du traîneau. L'antenne expérimentale de votre sous-marin <em>n'est pas encore assez boostée</em> pour détecter les clefs, mais elles sont <em>forcément</em> ici. Tout ce qu'il vous reste à faire, c'est <em>atteindre le plancher océanique</em> et les trouver.</p>
+<p>En tout cas, vous toucheriez le plancher océanique si vous pouviez, mais malheureusement, il est complètement recouvert par deux immenses troupeaux de <a href="https://fr.wikipedia.org/wiki/Holothurie">concombres de mer</a>, et il n'y a pas assez d'espace libre assez grand pour votre sous-marin.</p>
+<p>Vous soupçonnez les elfes d'avoir déjà fait ça auparavant. puisque vous découvrez le numéro de téléphone d'un biologiste des profondeurs marines sur une note manuscrite scotchée au mur du cockpit du sous-marin.</p>
+<p>"Les concombres des mers ? Ouais, ils chassent sûrement de la nourriture. Mais ne vous inquiétez pas, ce sont des créatures prévisibles : ils bougent en lignes parfaitement droites, uniquement quand il y'a l'espace nécessaire devant eux. Ils sont plutôt polis, en fait !"</p>
+<p>Vous expliquez que vous aimeriez prévoir où faire atterrir votre sous-marin.</p>
+<p>"Oh, c'est facile, ils vont finir par s'entre-bloquer et ils laisseront assez d'espace pour -- attendez, vous avez dit sous-marin ? Et le seul endroit avec autant de concombres des mers à un seul endroit serait au fonde la fosse des Mariannes, j--" vous raccrochez le téléphone.</p>
+<p>Il y a deux troupeaux de concombres des mers qui se partagent la même région ; l'un va toujours vers l'<em>est</em> (<code>&gt;</code>), tandis que l'autre va toujours vers le <em>sud</em> (<code>v</code>). Chaque emplacement peut contenir au plus un concombre des mers ; les emplacement restants sont <em>vides</em> (<code>.</code>). Votre sous-marin génère une carte de la situation (l'entrée de votre puzzle). Par exemple :</p>
+<pre class="cucumbers"><code>v...&gt;&gt;.vv&gt;
+.vv&gt;&gt;.vv..
+&gt;&gt;.&gt;v&gt;...v
+&gt;&gt;v&gt;&gt;.&gt;.v.
+v&gt;v.vv.v..
+&gt;.&gt;&gt;..v...
+.vv..&gt;.&gt;v.
+v.v..&gt;&gt;v.v
+....v..v.&gt;</code></pre>
+<p>À chaque <em>pas</em>, le troupeaux de concombres des mers faisant face à l'est essaiera de bouger un emplacement en avant. Quand un troupeau avance, tous les concombres des mers vérifient d'abord simultanément si il y a ou non un concombre des mers sur la position juste devant eux dans la direction vers laquelle ils sont tournés (même s'il s'agit d'un concombre des mers faisant face à la même direction que le concombre vérifiant), et chaque concombre ayant remarqué qu'il était devant un espace vide avance en simultané vers cet emplacement.</p>
+<p>Ainsi, dans une situation comme celle-ci :</p>
+<pre class="cucumbers"><code>...&gt;&gt;&gt;&gt;&gt;...</code></pre>
+<p>Après un pas, seul le concombre le plus à droite se serait déplacé :</p>
+<pre class="cucumbers"><code>...&gt;&gt;&gt;&gt;.&gt;..</code></pre>
+<p>Après le pas suivant, deux concombres se seraient déplacés :</p>
+<pre class="cucumbers"><code>...&gt;&gt;&gt;.&gt;.&gt;.</code></pre>
+<p>Durant un seul pas, les concombres des mers faisant face à l'est bougent en premier, puis les concombres des mers faisant face au sud se déplacent à leur tour. Ainsi, étant donnée cette situation :</p>
+<pre class="cucumbers"><code>..........
+.&gt;v....v..
+.......&gt;..
+..........</code></pre>
+<p>Après un seul pas, de tous les concombres des mers sur la gauche, seul le concombre des mers faisant face au sud s'est déplacé (puisqu'il n'était pas décalé à temps pour que le concombre faisant face à l'est ne se déplace), mais les deux concombres des mers sur la droite ont bougé (puisque le concombre des mers faisant face à l'est s'est décalé du chemin de celui faisant face au sud) :</p>
+<pre class="cucumbers"><code>..........
+.&gt;........
+..v....v&gt;.
+..........</code></pre>
+<p>À cause des <em>forts courants d'eau</em> dans cette zone, les concombres des mers qui se sortent par la bordure de droite de la carte se retrouvent à la bordure de gauche, et les concombres der mers qui sortent par la bordures du bas réapparaissent à la bordure du haut. Les concombres des mers vérifient toujours si l'espace devant eux est libre, même si cette destination est au côté opposé de la carte :</p>
+<pre class="cucumbersmulti"><code>État initial:
+...&gt;...
+.......
+......&gt;
+v.....&gt;
+......&gt;
+.......
+..vvv..
+
+Après 1 pas:
+..vv&gt;..
+.......
+&gt;......
+v.....&gt;
+&gt;......
+.......
+....v..
+
+Après 2 pas:
+....v&gt;.
+..vv...
+.&gt;.....
+......&gt;
+v&gt;.....
+.......
+.......
+
+Après 3 pas:
+......&gt;
+..v.v..
+..&gt;v...
+&gt;......
+..&gt;....
+v......
+.......
+
+Après 4 pas:
+&gt;......
+..v....
+..&gt;.v..
+.&gt;.v...
+...&gt;...
+.......
+v......</code></pre>
+<p>Pour trouver un endroit sûr où poser votre sous-marin, les concombres des mers doivent s'arrêter de bouger. considérez à nouveau le premier exemple :</p>
+<pre class="cucumbersmulti"><code>État initial:
+v...&gt;&gt;.vv&gt;
+.vv&gt;&gt;.vv..
+&gt;&gt;.&gt;v&gt;...v
+&gt;&gt;v&gt;&gt;.&gt;.v.
+v&gt;v.vv.v..
+&gt;.&gt;&gt;..v...
+.vv..&gt;.&gt;v.
+v.v..&gt;&gt;v.v
+....v..v.&gt;
+
+Après 1 pas:
+....&gt;.&gt;v.&gt;
+v.v&gt;.&gt;v.v.
+&gt;v&gt;&gt;..&gt;v..
+&gt;&gt;v&gt;v&gt;.&gt;.v
+.&gt;v.v...v.
+v&gt;&gt;.&gt;vvv..
+..v...&gt;&gt;..
+vv...&gt;&gt;vv.
+&gt;.v.v..v.v
+
+Après 2 pas:
+&gt;.v.v&gt;&gt;..v
+v.v.&gt;&gt;vv..
+&gt;v&gt;.&gt;.&gt;.v.
+&gt;&gt;v&gt;v.&gt;v&gt;.
+.&gt;..v....v
+.&gt;v&gt;&gt;.v.v.
+v....v&gt;v&gt;.
+.vv..&gt;&gt;v..
+v&gt;.....vv.
+
+Après 3 pas:
+v&gt;v.v&gt;.&gt;v.
+v...&gt;&gt;.v.v
+&gt;vv&gt;.&gt;v&gt;..
+&gt;&gt;v&gt;v.&gt;.v&gt;
+..&gt;....v..
+.&gt;.&gt;v&gt;v..v
+..v..v&gt;vv&gt;
+v.v..&gt;&gt;v..
+.v&gt;....v..
+
+Après 4 pas:
+v&gt;..v.&gt;&gt;..
+v.v.&gt;.&gt;.v.
+&gt;vv.&gt;&gt;.v&gt;v
+&gt;&gt;.&gt;..v&gt;.&gt;
+..v&gt;v...v.
+..&gt;&gt;.&gt;vv..
+&gt;.v.vv&gt;v.v
+.....&gt;&gt;vv.
+vvv&gt;...v..
+
+Après 5 pas:
+vv&gt;...&gt;v&gt;.
+v.v.v&gt;.&gt;v.
+&gt;.v.&gt;.&gt;.&gt;v
+&gt;v&gt;.&gt;..v&gt;&gt;
+..v&gt;v.v...
+..&gt;.&gt;&gt;vvv.
+.&gt;...v&gt;v..
+..v.v&gt;&gt;v.v
+v.v.&gt;...v.
+
+...
+
+Après 10 pas:
+..&gt;..&gt;&gt;vv.
+v.....&gt;&gt;.v
+..v.v&gt;&gt;&gt;v&gt;
+v&gt;.&gt;v.&gt;&gt;&gt;.
+..v&gt;v.vv.v
+.v.&gt;&gt;&gt;.v..
+v.v..&gt;v&gt;..
+..v...&gt;v.&gt;
+.vv..v&gt;vv.
+
+...
+
+Après 20 pas:
+v&gt;.....&gt;&gt;.
+&gt;vv&gt;.....v
+.&gt;v&gt;v.vv&gt;&gt;
+v&gt;&gt;&gt;v.&gt;v.&gt;
+....vv&gt;v..
+.v.&gt;&gt;&gt;vvv.
+..v..&gt;&gt;vv.
+v.v...&gt;&gt;.v
+..v.....v&gt;
+
+...
+
+Après 30 pas:
+.vv.v..&gt;&gt;&gt;
+v&gt;...v...&gt;
+&gt;.v&gt;.&gt;vv.&gt;
+&gt;v&gt;.&gt;.&gt;v.&gt;
+.&gt;..v.vv..
+..v&gt;..&gt;&gt;v.
+....v&gt;..&gt;v
+v.v...&gt;vv&gt;
+v.v...&gt;vvv
+
+...
+
+Après 40 pas:
+&gt;&gt;v&gt;v..v..
+..&gt;&gt;v..vv.
+..&gt;&gt;&gt;v.&gt;.v
+..&gt;&gt;&gt;&gt;vvv&gt;
+v.....&gt;...
+v.v...&gt;v&gt;&gt;
+&gt;vv.....v&gt;
+.&gt;v...v.&gt;v
+vvv.v..v.&gt;
+
+...
+
+Après 50 pas:
+..&gt;&gt;v&gt;vv.v
+..v.&gt;&gt;vv..
+v.&gt;&gt;v&gt;&gt;v..
+..&gt;&gt;&gt;&gt;&gt;vv.
+vvv....&gt;vv
+..v....&gt;&gt;&gt;
+v&gt;.......&gt;
+.vv&gt;....v&gt;
+.&gt;v.vv.v..
+
+...
+
+Après 55 pas:
+..&gt;&gt;v&gt;vv..
+..v.&gt;&gt;vv..
+..&gt;&gt;v&gt;&gt;vv.
+..&gt;&gt;&gt;&gt;&gt;vv.
+v......&gt;vv
+v&gt;v....&gt;&gt;v
+vvv...&gt;..&gt;
+&gt;vv.....&gt;.
+.&gt;v.vv.v..
+
+Après 56 pas:
+..&gt;&gt;v&gt;vv..
+..v.&gt;&gt;vv..
+..&gt;&gt;v&gt;&gt;vv.
+..&gt;&gt;&gt;&gt;&gt;vv.
+v......&gt;vv
+v&gt;v....&gt;&gt;v
+vvv....&gt;.&gt;
+&gt;vv......&gt;
+.&gt;v.vv.v..
+
+Après 57 pas:
+..&gt;&gt;v&gt;vv..
+..v.&gt;&gt;vv..
+..&gt;&gt;v&gt;&gt;vv.
+..&gt;&gt;&gt;&gt;&gt;vv.
+v......&gt;vv
+v&gt;v....&gt;&gt;v
+vvv.....&gt;&gt;
+&gt;vv......&gt;
+.&gt;v.vv.v..
+
+Après 58 pas:
+..&gt;&gt;v&gt;vv..
+..v.&gt;&gt;vv..
+..&gt;&gt;v&gt;&gt;vv.
+..&gt;&gt;&gt;&gt;&gt;vv.
+v......&gt;vv
+v&gt;v....&gt;&gt;v
+vvv.....&gt;&gt;
+&gt;vv......&gt;
+.&gt;v.vv.v..</code></pre>
+<p>Dans cet exemple, les concombres des mers se sont arrêté de bouger après <em><code>58</code></em> pas.</p>
+<p>Trouvez un endroit sûr où poser votre sous-marin. <em>Quel est le premier pas au cours duquel aucun concombre des mers ne bouge ?</em></p>
+</section> 
+<section id='translation_part_two'> 
+<h1 id="partie-deux----">--- Partie Deux ---</h1>
+<p>Soudain, la console de contrôle de l'antenne expérimentale s'allume :</p>
+<pre><code><em>Clefs du traîneau détectées !</em></code></pre>
+<p>Selon la console, les clefs sont <em>directement en-dessous du sous-marin</em>. Vous avez atterri à temps ! En utilisant un bras robotisé de votre sous-marin, vous déplacez les clefs dans votre sas.</p>
+<p>Maintenant, vous devez juste les ramener au Père Noël à temps pour sauver Noël ! Vous vérifiez votre horloge - <em>c'est</em> Noël. Pas moyen de les ramener à la surface à temps.</p>
+<p>Tout juste quand vous commenciez à perdre espoir, vous remarquez un bouton sur les clefs du traîneau : <em>démarrage à distance</em>. Vous pouvez démarrer le traîneau depuis le fond des océans ! Vous avez simplement besoin de <em>booster le signal</em> des clefs pour qu'il atteigne bel et bien le traîneau. Heureusement que le sous-marin est équipé de cette antenne expérimentale ! Vous aurez clairement besoin de ces <strong>50 étoiles</strong> pour l'envoyer si loin, par contre.</p>
+<p>La console de contrôle de l'antenne se rallume :</p>
+<pre><code><em>Source d'énergie détectée.
+Intégration de la source d'énergie de l'appareil "clefs du traîneau"...terminé.
+Installation des pilotes de l'appareil...terminé.
+Recalibration de l'antenne expérimentale...terminé.
+Force du boost dû à des phases correspondantes du signal:</em> <b>1 étoile</b></code></pre>
+<p>Plus que <strong>49 étoiles.</strong></p>
+</section> 
+</body> 
+</html> 
