@@ -16,6 +16,6 @@ La console de contrôle de l'antenne se rallume :
 Intégration de la source d'énergie de l'appareil "clefs du traîneau"...terminé.
 Installation des pilotes de l'appareil...terminé.
 Recalibration de l'antenne expérimentale...terminé.
-Force du boost dû à des phases correspondantes du signal:</em> <b>1 étoile</b></code></pre>
+Force du boost dû à des phases correspondantes du signal:</em> <strong>1 étoile</strong></code></pre>
 
 Plus que **49 étoiles.**
