@@ -12,7 +12,9 @@ for /d %%i in (day*) do (
     echo ^<!DOCTYPE html^> >> "%%i".html
     echo ^<html lang='fr'^> >> "%%i".html
     echo ^<head^> >> "%%i".html
-    echo ^<link rel='stylesheet' type='text/css' href='../../../../skins/sc2020-translation.css'^> >> "%%i".html
+    echo ^<meta charset='UTF-8'^> >> "%%i".html
+    echo ^<link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet"^> >> "%%i".html
+    echo ^<link rel='stylesheet' type='text/css' href='../style/aocLike.css'^> >> "%%i".html
     echo ^<meta name='day' content="%%i"^> >> "%%i".html
     echo ^</head^> >> "%%i".html
     echo ^<body^> >> "%%i".html
